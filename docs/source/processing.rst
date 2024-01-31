@@ -29,7 +29,7 @@ Results of the brain extraction and the segmentation of the T1w image, which sho
 
 **Segmentations**. The whole brain is segmented into 95 cortical and subcortical regions using FastSurferCNN. Specifically, the segmentation model utilized is FastSurferCNN, which is optimized for accurate and rapid anatomical segmentations.
 
-.. image:: _static/figures/sub-001_desc-volparc_T1w.svg
+.. image:: _static/sub-001_desc-volparc_T1w.svg
    :width: 750
    :height: 350
    :alt: Alternative Text
@@ -40,7 +40,7 @@ Results of the brain extraction and the segmentation of the T1w image, which sho
 **Cortical surface reconstruction**. The cortical surface is reconstructed based on the white matter segmented by FastSurferCNN. This process utilizes FastCSR, a deep-learning-based model designed to accelerate cortical surface reconstruction. FastCSR leverages an implicit representation of the cortical surface through the level-set representation, and uses a topology-preserving surface extraction method to yield white and pial surfaces represented by triangulated meshes. The reconstructed surface is inflated to a sphere with minimal distortion using the FreeSurfer command ``mris_sphere``.
 Surfaces (white and pial) were reconstructed with FastCSR overlaied on the T1w space:
 
-.. image:: _static/figures/sub-001_desc-volsurf_T1w.svg
+.. image:: _static/sub-001_desc-volsurf_T1w.svg
    :width: 750
    :height: 350
    :alt: Alternative Text
@@ -51,7 +51,7 @@ Surfaces (white and pial) were reconstructed with FastCSR overlaied on the T1w s
 **Cortical surface parcellation**. The cortical surface parcellation is generated based on the cortical surface registration using the FreeSurfer command ``recon-all -cortparc``. Subsequently, the cortical parcellation is projected to the volumetric segmentation by assigning voxels their closest cortical labels via the command ``mri_surf2volseg``, thereby replacing the cortical parcellation derived from FastSurferCNN.
 The parcellations were created based on the registration result generated from SUGAR, which aligns participants' surfaces with fsavreage template surfaces:
 
-.. image:: _static/figures/sub-001_desc-surfparc_T1w.svg
+.. image:: _static/sub-001_desc-surfparc_T1w.svg
    :width: 750
    :height: 350
    :alt: Alternative Text
