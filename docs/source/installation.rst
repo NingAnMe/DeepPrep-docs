@@ -77,17 +77,15 @@ The same output as before is expected.
     :linenos:
 
     $ docker run -it --rm --gpus all \
-    -v <bids_dir>:/BIDS_DATASET \
-    -v <output_dir>:/DEEPPREP_RESULT_DIR \
-    -v <freesurfer_license>:/usr/local/freesurfer/license.txt \
-    deepprep:latest \
-    /BIDS_DATASET /DEEPPREP_RESULT_DIR participant \
+    -v <bids_dir>:/input \
+    -v <output_dir>:/output \
+    -v <fs_license_txt>:/fs_license.txt \
+    deepprep:v23.1.0 \
+    /input \
+    /output \
+    participant \
     --bold_task_type rest \
-    --fs_license_file /usr/local/freesurfer/license.txt \
-    --bold_surface_spaces 'fsnative fsaverage6' \
-    --bold_template_space MNI152NLin6Asym \
-    --bold_template_res 02 \
-    -resume
+    --fs_license_file /fs_license.txt
 
 **Let's dig into the mandatory commands**
     + ``--gpus all`` - (Docker argument) assigns all the available GPUs on the local host to the container.
@@ -96,7 +94,7 @@ The same output as before is expected.
     .. _BIDS format: https://bids-specification.readthedocs.io/en/stable/index.html
     + ``<output_dir>`` - refers to the directory for the outputs of DeepPrep.
     + ``<freesurfer_license>`` - the directory of a valid FreeSurfer License.
-    + ``deepprep:latest`` - the latest version of the Docker image. One can specify the version by ``deepprep:<version>``.
+    + ``deepprep:v23.1.0`` - the latest version of the Docker image. One can specify the version by ``deepprep:<version>``.
     + ``participant`` - refers to the analysis level.
     + ``--bold_task_type`` - the task label of BOLD images (i.e. ``rest``, ``motor``).
 
