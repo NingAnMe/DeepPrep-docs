@@ -69,7 +69,7 @@ epub_title = project
 html_copy_source = False
 
 # The master toctree document.
-master_doc = "index"
+master_doc = "source/index"
 
 # -- Options for Texinfo output ----------------------------------------------
 
@@ -88,8 +88,8 @@ texinfo_documents = [
 ]
 # -- Extension configuration -------------------------------------------------
 
-apidoc_module_dir = "../deepprep"
-apidoc_output_dir = "api"
-apidoc_excluded_paths = ["model/*"]
-apidoc_separate_modules = True
-apidoc_extra_args = ["--module-first", "-d 1", "-T"]
+# apidoc_module_dir = "../deepprep"
+# apidoc_output_dir = "api"
+# apidoc_excluded_paths = ["model/*"]
+# apidoc_separate_modules = True
+# apidoc_extra_args = ["--module-first", "-d 1", "-T"]
