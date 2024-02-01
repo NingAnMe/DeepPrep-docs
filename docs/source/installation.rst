@@ -23,10 +23,7 @@ DeepPrep provides a Docker image as the recommended way to get started.
 .. _Docker Installation Page: https://www.docker.com/get-started/
 
 
-2. Test Docker with the ``hello-world`` image:
-
-.. code-block:: python
-    :linenos:
+2. Test Docker with the ``hello-world`` image: ::
 
     $ docker run -it --rm hello-world
 
@@ -55,10 +52,7 @@ The following message should appear:
     For more examples and ideas, visit:
      https://docs.docker.com/get-started/
 
-3. Please make sure GPUs are accessible by adding the flag ``--gpus all``:
-
-.. code-block:: python
-    :linenos:
+3. Please make sure GPUs are accessible by adding the flag ``--gpus all``: ::
 
     $ docker run -it --gpus all --rm hello-world
 
