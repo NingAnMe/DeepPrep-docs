@@ -33,11 +33,9 @@ DeepPrep: Deep learning empowered preprocessing workflow v23.1.0:
                           [--anat_only] [--bold_only] [--bold_sdc] [--bold_confounds]
                           [--bold_surface_spaces '[fsnative fsaverage fsaverage6 ...]']
                           [--bold_template_space {MNI152NLin6Asym MNI152NLin2009cAsym}] [--bold_template_res {02 03...}]
-                          [--device {auto {0 1 2...} cpu}] [--gpu_compute_capability {8.6}]
+                          [--device { {auto 0 1 2...} cpu}] [--gpu_compute_capability {8.6}]
                           [--cpus 10] [--memory 5]
-                          [--deepprep_home PATH] [--templateflow_home PATH]
-                          [--ignore_error]
-                          [--resume]
+                          [--ignore_error] [--resume]
 
 
 
