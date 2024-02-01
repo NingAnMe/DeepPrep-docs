@@ -23,7 +23,7 @@ DeepPrep provides a Docker image as the recommended way to get started.
 .. _Docker Installation Page: https://www.docker.com/get-started/
 
 
-2. Test Docker with the ``hello-world`` image: ::
+2. Test Docker with the ``hello-world`` image::
 
     $ docker run -it --rm hello-world
 
@@ -52,15 +52,14 @@ The following message should appear:
     For more examples and ideas, visit:
      https://docs.docker.com/get-started/
 
-3. Please make sure GPUs are accessible by adding the flag ``--gpus all``: ::
+3. Please make sure GPUs are accessible by adding the flag ``--gpus all``::
 
     $ docker run -it --gpus all --rm hello-world
 
 The same output as before is expected.
 
-4. Pull the Docker image ::
+4. Pull the Docker image::
 
     $ docker pull ninganme/deepprep:v23.1.0
 
-**Congratulations! You are all set!**
 
