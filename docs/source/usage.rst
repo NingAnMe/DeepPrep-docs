@@ -108,13 +108,18 @@ Sample Docker command
 Quick start
 -----------
 
-Get started with a sample, download here.
+Get started with a ``test_sample``, `download here`_.
+
+.. _download here: https://github.com/NingAnMe/DeepPrep-docs/archive/refs/heads/main.zip
+
+The BIDS formatted sample contains one subject with one T1w and two bold files.
+
 
 .. code-block:: bash
     :linenos:
 
     $ docker run -it --rm --gpus all \
-                 -v ~/deepprep_sample:/input \
+                 -v ~/test_sample:/input \
                  -v ~/deepprep_output:/output \
                  -v ~/license.txt:/fs_license.txt \
                  ninganme/deepprep:v23.1.0 \
