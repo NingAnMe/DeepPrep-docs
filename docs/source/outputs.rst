@@ -66,7 +66,7 @@ The main outputs of the preprocessed data include:
 *Preprocessed fMRI data* are stored in the ``<output_dir>/func`` and ``<output_dir>/anat`` along with their reference files and json files: ::
 
  sub-<subject_label>/
-   amat/
+   anat/
      sub-<subject_label>_desc-brain_mask.nii.gz
      sub-<subject_label>_desc-preproc_T1w.nii.gz
    func/

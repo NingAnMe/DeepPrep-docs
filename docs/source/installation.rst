@@ -9,9 +9,9 @@ Run with Docker (step-by-step)
 
 DeepPrep provides a Docker image as the recommended way to get started.
 
-.. note::
+.. warning::
     **Required Environment**
-        + Graphics Driver VRAM: >= 24GB
+        + Graphics Driver VRAM: >= 12GB
         + Disk: >= 20G
         + RAM: >= 16GB
         + Swap space: >=16G
@@ -57,7 +57,10 @@ The following message should appear:
     $ docker run -it --gpus all --rm hello-world
 
 The same output as before is expected.
-Otherwise, the container will only have access to the CPU resources of the host machine.
+
+.. note::
+
+    Without ``--gpus all``, the container will only have access to the CPU resources of the host machine.
 
 4. Pull the Docker image::
 
@@ -83,7 +86,7 @@ If the Docker images was pulled successfully, you will see the following message
                     [--cpus 10] [--memory 5]
                     [--deepprep_home PATH] [--templateflow_home PATH]
                     [--ignore_error]
-                    [-resume]
+                    [--resume]
 
 6. Docker run with CPU::
 

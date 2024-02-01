@@ -93,3 +93,6 @@ texinfo_documents = [
 # apidoc_excluded_paths = ["model/*"]
 # apidoc_separate_modules = True
 # apidoc_extra_args = ["--module-first", "-d 1", "-T"]
+
+def setup(app):
+    app.add_css_file('custom.css')
