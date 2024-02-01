@@ -25,7 +25,7 @@ Command-line arguments
 
 DeepPrep: Deep learning empowered preprocessing workflow v23.1.0:
 
-.. code-block::
+.. code-block:: plaintext
 
    usage: deepprep-docker [bids_dir] [output_dir] [{participant}] [--bold_task_type TASK_LABEL]
                           [--fs_license_file PATH] [--participant-label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
@@ -42,21 +42,25 @@ DeepPrep: Deep learning empowered preprocessing workflow v23.1.0:
 
 DeepPrep: Deep learning empowered preprocessing workflow v23.1.0:
 
-.. code-block:: plaintext
-
-   usage: deepprep-docker [bids_dir] [output_dir] [{participant}] [--bold_task_type TASK_LABEL]
-
-DeepPrep: Deep learning empowered preprocessing workflow v23.1.0:
-
 .. code-block:: bash
 
    usage: deepprep-docker [bids_dir] [output_dir] [{participant}] [--bold_task_type TASK_LABEL]
+                          [--fs_license_file PATH] [--participant-label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
+                          [--subjects_dir PATH] [--executor {local cluster}]
+                          [--anat_only] [--bold_only] [--bold_sdc] [--bold_confounds]
+                          [--bold_surface_spaces '[fsnative fsaverage fsaverage6 ...]']
+
 
 DeepPrep: Deep learning empowered preprocessing workflow v23.1.0:
 
 .. code-block:: none
 
    usage: deepprep-docker [bids_dir] [output_dir] [{participant}] [--bold_task_type TASK_LABEL]
+                          [--fs_license_file PATH] [--participant-label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
+                          [--subjects_dir PATH] [--executor {local cluster}]
+                          [--anat_only] [--bold_only] [--bold_sdc] [--bold_confounds]
+                          [--bold_surface_spaces '[fsnative fsaverage fsaverage6 ...]']
+
 
 ====================
 Sample Docker command
