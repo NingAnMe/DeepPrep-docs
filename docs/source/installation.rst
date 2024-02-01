@@ -54,7 +54,7 @@ The following message should appear:
 
 3. If you have GPUs on your host machine, you can check whether the GPUs are accessible by adding the flag ``--gpus all``::
 
-    $ docker run -it --gpus all --rm hello-world
+    $ docker run -it --rm --gpus all hello-world
 
 The same output as before is expected. If there's an error message popped up (something like below), please double check that the Docker was installed properly.
 

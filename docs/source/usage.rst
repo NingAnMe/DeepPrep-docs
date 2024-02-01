@@ -49,10 +49,10 @@ DeepPrep is compatible with FreeSurfer tools, thus requires a valid license.
     https://surfer.nmr.mgh.harvard.edu/registration.html.
 
 Pleas make sure that a valid license file is passed into the command.
-For example, if the license is stored in the ``$HOME/.licenses/freesurfer/license.txt`` file on
+For example, if the license is stored in the ``$HOME/freesurfer/license.txt`` file on
 the host system, the ``<fs_license_file>`` in command ``-v <fs_license_file>:/fs_license.txt`` should be replaced with the valid path: ::
 
-    $ -v $HOME/.licenses/freesurfer/license.txt:/fs_license.txt
+    $ -v $HOME/freesurfer/license.txt:/fs_license.txt
 
 
 =====================
@@ -88,18 +88,15 @@ Sample Docker command
     + ``--bold_only`` - with this flag, only the *functional* images will be processed, where *Recon* files are pre-requested.
     + ``--bold_sdc`` - with this flag, susceptibility distortion correction (SDC) will be applied.
     + ``--bold_confounds`` - with this flag, confounds will be generated.
-    + ``--bold_surface_spaces`` - specifies surfaces spaces, i.e. ``'fsnative fsaverage fsaverage6'``. (*Note:* the space names must be quoted using single quotation marks.)
-    + ``--bold_template_space`` - specifies an available template space from `TemplateFlow`_, i.e. ``MNI152NLin6Asym``.
+    + ``--bold_surface_spaces`` - specifies surfaces spaces, i.e. ``'fsnative fsaverage fsaverage6'``, default is ``fsaverage6``. (*Note:* the space names must be quoted using single quotation marks.)
+    + ``--bold_template_space`` - specifies an available template space from `TemplateFlow`_, default is ``MNI152NLin6Asym``.
     .. _TemplateFlow: https://www.templateflow.org/browse/
-    + ``--bold_template_res`` - specifies the resolution of the corresponding template space from `TemplateFlow`_, i.e. ``02``.
-    + ``--device`` - specifies the device, i.e. ``cpu``.
+    + ``--bold_template_res`` - specifies the resolution of the corresponding template space from `TemplateFlow`_, default is ``02``.
+    + ``--device`` - specifies the device, default is ``auto``, which automatically select a GPU device; ``0`` specifies the first GPU device; ``cpu`` refers to CPU only.
     + ``--gpu_compute_capability`` - refers to the GPU compute capability, you can find yours `here`_.
     .. _here: https://developer.nvidia.com/cuda-gpus
-    + ``--cpus`` - refers to the maximum CPUs for usage.
-    + ``--memory`` - refers to the maximum memory resources for usage.
-    + ``--freesurfer_home`` - the directory of the FreeSurfer home.
-    + ``--deepprep_home`` - the directory of the DeepPrep home.
-    + ``--templateflow_home`` - the directory of the TemplateFlow home.
+    + ``--cpus`` - refers to the maximum CPUs for usage, should be integer values > 0.
+    + ``--memory`` - refers to the maximum memory resources for usage, should be integer values > 0.
     + ``--ignore_error`` - ignores the errors occurred during processing.
     + ``--resume`` - allows the DeepPrep pipeline starts from the last exit point.
 
@@ -112,6 +109,7 @@ Get started with a ``test_sample``, `download here`_.
 
 The BIDS formatted sample contains one subject with one T1w and two bold files.
 
+1. run with GPU (**recommended**)
 
 .. code-block:: bash
     :linenos:
@@ -128,10 +126,30 @@ The BIDS formatted sample contains one subject with one T1w and two bold files.
                  --fs_license_file /fs_license.txt
 
 **Docker arguments**
-    + ``--gpus all`` - (optional) assigns all the available GPUs on the local host to the container. *This flag is highly recommended*.
-    + ``-v`` - flag mounts your local directories to the directories inside the container. The input directories should be in *absolute path* to avoid any confusion.
     + ``-it`` - (optional) starts the container in an interactive mode.
     + ``--rm`` - (optional) the container will be removed when exit.
+    + ``--gpus all`` - (optional) assigns all the available GPUs on the local host to the container. *This flag is highly recommended*.
+    + ``-v`` - flag mounts your local directories to the directories inside the container. The input directories should be in *absolute path* to avoid any confusion.
+
+
+2. run with CPU only
+
+.. code-block:: bash
+    :linenos:
+
+    $ docker run -it --rm \
+                 -v ~/test_sample:/input \
+                 -v ~/deepprep_output:/output \
+                 -v ~/license.txt:/fs_license.txt \
+                 ninganme/deepprep:v23.1.0 \
+                 /input \
+                 /output \
+                 participant \
+                 --bold_task_type rest \
+                 --fs_license_file /fs_license.txt \
+                 --device cpu
+
+    + ``--device cpu`` - refers to CPU only.
 
 
 .. container:: congratulation
