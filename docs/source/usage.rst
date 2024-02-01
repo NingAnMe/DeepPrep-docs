@@ -25,7 +25,7 @@ Command-line arguments
 
 DeepPrep: Deep learning empowered preprocessing workflow v23.1.0:
 
-.. code-block:: JSON
+.. code-block:: text
 
    usage: deepprep-docker [bids_dir] [output_dir] [{participant}] [--bold_task_type TASK_LABEL]
                           [--fs_license_file PATH] [--participant-label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
