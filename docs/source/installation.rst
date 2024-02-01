@@ -52,11 +52,17 @@ The following message should appear:
     For more examples and ideas, visit:
      https://docs.docker.com/get-started/
 
-3. Checking whether the GPUs are accessible by adding the flag ``--gpus all``::
+3. If you have GPUs on your host machine, you can check whether the GPUs are accessible by adding the flag ``--gpus all``::
 
-    $ docker run -it --gpus all --rm hello-world
+    $ docker run -it --rm --gpus all hello-world
 
-The same output as before is expected.
+The same output as before is expected. If there's an error message popped up (something like below), please double check that the Docker was installed properly.
+
+.. code-block:: none
+
+    docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: error running hook #0: error running hook: exit status 1, stdout: , stderr: Auto-detected mode as 'legacy'
+    nvidia-container-cli: initialization error: load library failed: libnvidia-ml.so.1: cannot open shared object file: no such file or directory: unknown.
+
 
 .. note::
 
@@ -66,9 +72,9 @@ The same output as before is expected.
 
     $ docker pull ninganme/deepprep:v23.1.0
 
-5. Docker run with GPU (**recommended**)::
+5. Docker run::
 
-    $ docker run --gpus all ninganme/deepprep:v23.1.0
+    $ docker run --rm ninganme/deepprep:v23.1.0
 
 If the Docker images was pulled successfully, you will see the following message:
 
@@ -82,14 +88,6 @@ If the Docker images was pulled successfully, you will see the following message
                     [--anat_only] [--bold_only] [--bold_sdc] [--bold_confounds]
                     [--bold_surface_spaces '[fsnative fsaverage fsaverage6 ...]']
                     [--bold_template_space {MNI152NLin6Asym MNI152NLin2009cAsym}] [--bold_template_res {02 03...}]
-                    [--device {auto {0 1 2...} cpu}] [--gpu_compute_capability {8.6}]
+                    [--device { {auto 0 1 2...} cpu}] [--gpu_compute_capability {8.6}]
                     [--cpus 10] [--memory 5]
-                    [--deepprep_home PATH] [--templateflow_home PATH]
-                    [--ignore_error]
-                    [--resume]
-
-6. Docker run with CPU::
-
-    $ docker run ninganme/deepprep:v23.1.0
-
-The same message as above should appear.
+                    [--ignore_error] [--resume]
