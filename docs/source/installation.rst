@@ -74,18 +74,18 @@ If the Docker images was pulled successfully, you will see the following message
     INFO: args:
     DeepPrep args:
     deepprep-docker [bids_dir] [output_dir] [{participant}] [--bold_task_type TASK_LABEL]
-                          [--fs_license_file PATH] [--participant-label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
-                          [--subjects_dir PATH] [--executor {local cluster}]
-                          [--anat_only] [--bold_only] [--bold_sdc] [--bold_confounds]
-                          [--bold_surface_spaces '[fsnative fsaverage fsaverage6 ...]']
-                          [--bold_template_space {MNI152NLin6Asym MNI152NLin2009cAsym}] [--bold_template_res {02 03...}]
-                          [--device {auto {0 1 2...} cpu}] [--gpu_compute_capability {8.6}]
-                          [--cpus 10] [--memory 5]
-                          [--deepprep_home PATH] [--templateflow_home PATH]
-                          [--ignore_error]
-                          [-resume]
+                    [--fs_license_file PATH] [--participant-label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
+                    [--subjects_dir PATH] [--executor {local cluster}]
+                    [--anat_only] [--bold_only] [--bold_sdc] [--bold_confounds]
+                    [--bold_surface_spaces '[fsnative fsaverage fsaverage6 ...]']
+                    [--bold_template_space {MNI152NLin6Asym MNI152NLin2009cAsym}] [--bold_template_res {02 03...}]
+                    [--device {auto {0 1 2...} cpu}] [--gpu_compute_capability {8.6}]
+                    [--cpus 10] [--memory 5]
+                    [--deepprep_home PATH] [--templateflow_home PATH]
+                    [--ignore_error]
+                    [-resume]
 
-5. Docker run with CPU::
+6. Docker run with CPU::
 
     $ docker run ninganme/deepprep:v23.1.0
 

@@ -110,5 +110,21 @@ the host system, the ``<fs_license_file>`` in command ``-v <fs_license_file>:/fs
 Quick start
 ===========
 
+Get started with a sample, download here.
+
+.. code-block:: bash
+    :linenos:
+
+    $ docker run -it --rm --gpus all \
+                 -v ~/deepprep_sample:/input \
+                 -v ~/deepprep_output:/output \
+                 -v ~/license.txt:/fs_license.txt \
+                 ninganme/deepprep:v23.1.0 \
+                 /input \
+                 /output \
+                 participant \
+                 --bold_task_type rest \
+                 --fs_license_file /fs_license.txt
+
 
 **Congratulations! You are all set!**
