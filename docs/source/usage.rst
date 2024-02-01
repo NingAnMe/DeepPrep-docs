@@ -37,7 +37,24 @@ DeepPrep: Deep learning empowered preprocessing workflow v23.1.0:
                           [--cpus 10] [--memory 5]
                           [--deepprep_home PATH] [--templateflow_home PATH]
                           [--ignore_error]
-                          [-resume]
+                          [--resume]
+
+
+
+
+======================
+The FreeSurfer license
+======================
+DeepPrep is compatible with FreeSurfer tools, thus requires a valid license.
+
+    To obtain a FreeSurfer license, simply register for free at
+    https://surfer.nmr.mgh.harvard.edu/registration.html.
+
+Pleas make sure that a valid license file is passed into the command.
+For example, if the license is stored in the ``$HOME/.licenses/freesurfer/license.txt`` file on
+the host system, the ``<fs_license_file>`` in command ``-v <fs_license_file>:/fs_license.txt`` should be replaced with the valid path: ::
+
+    $ -v $HOME/.licenses/freesurfer/license.txt:/fs_license.txt
 
 
 =====================
@@ -58,8 +75,6 @@ Sample Docker command
                  --fs_license_file /fs_license.txt
 
 **Let's dig into the mandatory commands**
-    + ``--gpus all`` - (Docker argument) assigns all the available GPUs on the local host to the container.
-    + ``-v`` - (Docker argument) flag mounts your local directories to the directories inside the container. The input directories should be in *absolute path* to avoid any confusion.
     + ``<bids_dir>`` - refers to the directory of the input dataset, which should be in `BIDS format`_.
     .. _BIDS format: https://bids-specification.readthedocs.io/en/stable/index.html
     + ``<output_dir>`` - refers to the directory for the outputs of DeepPrep.
@@ -69,8 +84,6 @@ Sample Docker command
     + ``--bold_task_type`` - the task label of BOLD images (i.e. ``rest``, ``motor``).
 
 **Dig further (optional commands)**
-    + ``-it`` - (Docker argument) starts the container in an interactive mode.
-    + ``--rm`` - (Docker argument) the container will be removed when exit.
     + ``--subjects_dir`` - the output directory of *Recon* files, default is ``<output_dir>/Recon``.
     + ``--participant_label`` - the subject id you want to process, otherwise all the subjects in the ``<bids_dir>`` will be processed.
     + ``--anat_only`` - with this flag, only the *anatomical* images will be processed.
@@ -90,25 +103,10 @@ Sample Docker command
     + ``--deepprep_home`` - the directory of the DeepPrep home.
     + ``--templateflow_home`` - the directory of the TemplateFlow home.
     + ``--ignore_error`` - ignores the errors occurred during processing.
-    + ``-resume`` - allows the DeepPrep pipeline starts from the last exit point.
+    + ``--resume`` - allows the DeepPrep pipeline starts from the last exit point.
 
-======================
-The FreeSurfer license
-======================
-DeepPrep is compatible with FreeSurfer tools, thus requires a valid license.
-
-    To obtain a FreeSurfer license, simply register for free at
-    https://surfer.nmr.mgh.harvard.edu/registration.html.
-
-Pleas make sure that a valid license file is passed into the command.
-For example, if the license is stored in the ``$HOME/.licenses/freesurfer/license.txt`` file on
-the host system, the ``<fs_license_file>`` in command ``-v <fs_license_file>:/fs_license.txt`` should be replaced with the valid path: ::
-
-    $ -v $HOME/.licenses/freesurfer/license.txt:/fs_license.txt
-
-===========
 Quick start
-===========
+-----------
 
 Get started with a sample, download here.
 
@@ -126,5 +124,14 @@ Get started with a sample, download here.
                  --bold_task_type rest \
                  --fs_license_file /fs_license.txt
 
+**Docker arguments**
+    + ``--gpus all`` - (optional) assigns all the available GPUs on the local host to the container. *This flag is highly recommended*.
+    + ``-v`` - flag mounts your local directories to the directories inside the container. The input directories should be in *absolute path* to avoid any confusion.
+    + ``-it`` - (optional) starts the container in an interactive mode.
+    + ``--rm`` - (optional) the container will be removed when exit.
 
-**Congratulations! You are all set!**
+
+.. container:: congratulation
+
+   **Congratulations! You are all set!**
+
