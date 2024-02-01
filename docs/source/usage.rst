@@ -96,8 +96,6 @@ The FreeSurfer license
 ======================
 DeepPrep is compatible with FreeSurfer tools, thus requires a valid license.
 
-.. code-block:: JSON
-
     To obtain a FreeSurfer license, simply register for free at
     https://surfer.nmr.mgh.harvard.edu/registration.html.
 
