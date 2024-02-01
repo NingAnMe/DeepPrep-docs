@@ -20,10 +20,12 @@ Further information about BIDS and BIDS-Apps can be found at the `NiPreps portal
 
 
 ======================
-Command-Line Arguments
+Command-line arguments
 ======================
 
-DeepPrep: Deep learning empowered preprocessing workflow v23.1.0::
+DeepPrep: Deep learning empowered preprocessing workflow v23.1.0:
+
+.. code-block:: JSON
 
    usage: deepprep-docker [bids_dir] [output_dir] [{participant}] [--bold_task_type TASK_LABEL]
                           [--fs_license_file PATH] [--participant-label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
@@ -44,15 +46,15 @@ Sample Docker command
     :linenos:
 
     $ docker run -it --rm --gpus all \
-    -v <bids_dir>:/input \
-    -v <output_dir>:/output \
-    -v <fs_license_file>:/fs_license.txt \
-    ninganme/deepprep:v23.1.0 \
-    /input \
-    /output \
-    participant \
-    --bold_task_type rest \
-    --fs_license_file /fs_license.txt
+                 -v <bids_dir>:/input \
+                 -v <output_dir>:/output \
+                 -v <fs_license_file>:/fs_license.txt \
+                 ninganme/deepprep:v23.1.0 \
+                 /input \
+                 /output \
+                 participant \
+                 --bold_task_type rest \
+                 --fs_license_file /fs_license.txt
 
 **Let's dig into the mandatory commands**
     + ``--gpus all`` - (Docker argument) assigns all the available GPUs on the local host to the container.
@@ -92,7 +94,9 @@ Sample Docker command
 ======================
 The FreeSurfer license
 ======================
-DeepPrep is compatible with FreeSurfer tools, thus requires a valid license. ::
+DeepPrep is compatible with FreeSurfer tools, thus requires a valid license.
+
+.. code-block:: JSON
 
     To obtain a FreeSurfer license, simply register for free at
     https://surfer.nmr.mgh.harvard.edu/registration.html.
@@ -102,3 +106,10 @@ For example, if the license is stored in the ``$HOME/.licenses/freesurfer/licens
 the host system, the ``<fs_license_file>`` in command ``-v <fs_license_file>:/fs_license.txt`` should be replaced with the valid path: ::
 
     $ -v $HOME/.licenses/freesurfer/license.txt:/fs_license.txt
+
+===========
+Quick start
+===========
+
+
+**Congratulations! You are all set!**
