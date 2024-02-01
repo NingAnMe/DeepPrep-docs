@@ -14,7 +14,6 @@ The anatomical preprocessing workflow in DeepPrep closely follows the FreeSurfer
 
 **Motion correction**. If multiple T1w images are available for each participant or each session, FreeSurfer's "recon-all -motioncor" is employed to correct head motions across the scans. This process yields an average T1w image to minimize the impact of head motions on data quality.
 
-展示图
 
 **Skull-stripping and bias field correction**. A brain mask is generated according the 95 whole-brain regions to achieve accurate and robust skull-stripping. The T1w images undergo N4 bias field correction using SimpleITK with reference to a brain mask. The brain mask can be generated automatically and also be manually edited in this process. Afterward, the normalized and skull-stripped T1w images could be fed into the subsequent steps.
 Results of the brain extraction and the segmentation of the T1w image, which shows the brain tissue segmentation and brain cortical surface structural parcellations：
@@ -74,20 +73,23 @@ The functional preprocessing workflow in DeepPrep incorporates advanced registra
 
 **Motion correction and slice-timing correction**. The head motion parameters of the BOLD fMRI signals are estimated by FSL's MCFLIRT, with the middle frame selected as a reference volume for each run by default. Slice-timing correction is included in our processing pipeline for fMRI data using AFNI's 3dTshift, when slice-timing information is available in the BIDS metadata. This is an optional step and can be deactivated if the BIDS metadata does not specify slice times.
 
-展示一些图
-
 **Coregistration**. A rigid registration is performed using FreeSurfer's boundary-based registration to align motion-corrected fMRI volumes to native T1w images for each subject. The registration optimizes the boundary-based loss function to align the boundary between gray and white matter across different imaging modalities.
 Alignment of function and anatomical MRI data.bbregister was used to generate transormations from EPI-space to T1w-space:
 
 .. raw:: html
 
    <div style="text-align: center;">
-       <object type="image/svg+xml" data="_static/figures/sub-001_ses-01_task-rest_desc-reg2native_bold.svg" style="width: 700px; height: 350px;"></object>
+       <object type="image/svg+xml" data="_static/sub-001_ses-01_task-rest_desc-reg2native_bold.svg" style="width: 700px; height: 350px;"></object>
    </div>
 
 **Distortion correction**. Distortion correction is performed using SDCFlows (Susceptibility Distortion Correction Workflows). SDCFlows offers versatile workflows designed to preprocess various MRI schemes, enabling the estimation of B0 field-inhomogeneity maps directly associated with distortion. This correction is applied to the fMRI data when the appropriate fieldmap information is available within the BIDS metadata. Additionally, SDCFlows includes an experimental fieldmap-less distortion correction approach, which relies on a nonlinear registration process between the BOLD fMRI reference image and the T1w image. Distortion correction is an optional step.
 
-展示一些图
+.. raw:: html
+
+ <div style="text-align: center;">
+  <object type="image/svg+xml" data="_static/sub-001_ses-01_task-rest_desc-sdc_bold.svg"style="width: 700px; height: 350px;"></object>
+ </div>
+
 
 **Spatial normalization**. The spatial normalization step aims to normalize individual brain images to a standard template, such as the MNI152 template and FreeSurfer's fsaverage6 surface template. The pipeline also flexibly supports normalization to other volumetric human brain templates managed by the TemplateFlow.
 SynthMorph used anatomical MRI data to generate transformations from T1w-space to standard-template-space, and then applied the transformations to functional data in T1w-space:
@@ -95,7 +97,7 @@ SynthMorph used anatomical MRI data to generate transformations from T1w-space t
 .. raw:: html
 
  <div style="text-align: center;">
-  <object type="image/svg+xml" data="_static/figures/sub-001_ses-01_task-rest_desc-reg2MNI152_bold.svg"style="width: 700px; height: 350px;"></object>
+  <object type="image/svg+xml" data="_static/sub-001_ses-01_task-rest_desc-reg2MNI152_bold.svg"style="width: 700px; height: 350px;"></object>
  </div>
 
 ==========
