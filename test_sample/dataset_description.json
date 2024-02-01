@@ -1,0 +1,15 @@
+{
+    "Name": "test_sample",
+    "BIDSVersion": "1.4.0",
+    "DatasetType": "",
+    "License": "",
+    "Authors": [
+        ""
+    ],
+    "HowToAcknowledge": "",
+    "Funding": "",
+    "ReferencesAndLinks": [
+        ""
+    ],
+    "DatasetDOI": ""
+}
