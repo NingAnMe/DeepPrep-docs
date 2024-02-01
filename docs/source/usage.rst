@@ -105,7 +105,7 @@ Quick start
 
 Get started with a ``test_sample``, `download here`_.
 
-.. _download here: https://github.com/NingAnMe/DeepPrep-docs/archive/refs/heads/main.zip
+.. _download here: https://github.com/NingAnMe/DeepPrep-docs/archive/refs/tags/test_sample.zip
 
 The BIDS formatted sample contains one subject with one T1w and two bold files.
 
@@ -129,7 +129,7 @@ The BIDS formatted sample contains one subject with one T1w and two bold files.
     + ``-it`` - (optional) starts the container in an interactive mode.
     + ``--rm`` - (optional) the container will be removed when exit.
     + ``--gpus all`` - (optional) assigns all the available GPUs on the local host to the container. *This flag is highly recommended*.
-    + ``-v`` - flag mounts your local directories to the directories inside the container. The input directories should be in *absolute path* to avoid any confusion.
+    + ``-v`` - mounts your local directories to the directories inside the container. The input directories should be in *absolute path* to avoid any confusion.
 
 
 2. run with CPU only
