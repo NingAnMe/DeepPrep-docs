@@ -33,33 +33,56 @@ Deepprep: Deep PREProcessing workflows v0.0.14::
 ====================
 Positional Arguments
 ====================
+Sample Docker command
 
-**bids_dir**
-   The root folder of a BIDS valid dataset
-**subjects_dir**
-    The output path for the outcomes of anatomical preprocessing
-**output_dir**
-    The output path for the outcomes of function preprocessing
-**subjects**
-    Run with specified subjects
-**anat_only**
-    Run anatomical workflows only
-**bold_only**
-    Run BOLD workflows only
-**bold_task_type**
-    Select a specific task to be processed
-**bold_skip_frame**
-    Number of skipped frames
-**bold_sdc**
-    Whether to perform step sdc
-**bold_confounds**
-    None
-**bold_spaces**
-    None
-**bold_template_space**
-    None
-**bold_template_resolution**
-    None
+.. code-block:: bash
+    :linenos:
+
+    $ docker run -it --rm --gpus all \
+    -v <bids_dir>:/input \
+    -v <output_dir>:/output \
+    -v <fs_license_txt>:/fs_license.txt \
+    deepprep:v23.1.0 \
+    /input \
+    /output \
+    participant \
+    --bold_task_type rest \
+    --fs_license_file /fs_license.txt
+
+**Let's dig into the mandatory commands**
+    + ``--gpus all`` - (Docker argument) assigns all the available GPUs on the local host to the container.
+    + ``-v`` - (Docker argument) flag mounts your local directories to the directories inside the container. The input directories should be in *absolute path* to avoid any confusion.
+    + ``<bids_dir>`` - refers to the directory of the input dataset, which should be in `BIDS format`_.
+    .. _BIDS format: https://bids-specification.readthedocs.io/en/stable/index.html
+    + ``<output_dir>`` - refers to the directory for the outputs of DeepPrep.
+    + ``<freesurfer_license>`` - the directory of a valid FreeSurfer License.
+    + ``deepprep:v23.1.0`` - the latest version of the Docker image. One can specify the version by ``deepprep:<version>``.
+    + ``participant`` - refers to the analysis level.
+    + ``--bold_task_type`` - the task label of BOLD images (i.e. ``rest``, ``motor``).
+
+**Dig further (optional commands)**
+    + ``-it`` - (Docker argument) starts the container in an interactive mode.
+    + ``--rm`` - (Docker argument) the container will be removed when exit.
+    + ``--subjects_dir`` - the output directory of *Recon* files, default is ``<output_dir>/Recon``.
+    + ``--participant_label`` - the subject id you want to process, otherwise all the subjects in the ``<bids_dir>`` will be processed.
+    + ``--anat_only`` - with this flag, only the *anatomical* images will be processed.
+    + ``--bold_only`` - with this flag, only the *functional* images will be processed, where *Recon* files are pre-requested.
+    + ``--bold_sdc`` - with this flag, susceptibility distortion correction (SDC) will be applied.
+    + ``--bold_confounds`` - with this flag, confounds will be generated.
+    + ``--bold_surface_spaces`` - specifies surfaces spaces, i.e. ``'fsnative fsaverage fsaverage6'``. (*Note:* the space names must be quoted using single quotation marks.)
+    + ``--bold_template_space`` - specifies an available template space from `TemplateFlow`_, i.e. ``MNI152NLin6Asym``.
+    .. _TemplateFlow: https://www.templateflow.org/browse/
+    + ``--bold_template_res`` - specifies the resolution of the corresponding template space from `TemplateFlow`_, i.e. ``02``.
+    + ``--device`` - specifies the device, i.e. ``cpu``.
+    + ``--gpu_compute_capability`` - refers to the GPU compute capability, you can find yours `here`_.
+    .. _here: https://developer.nvidia.com/cuda-gpus
+    + ``--cpus`` - refers to the maximum CPUs for usage.
+    + ``--memory`` - refers to the maximum memory resources for usage.
+    + ``--freesurfer_home`` - the directory of the FreeSurfer home.
+    + ``--deepprep_home`` - the directory of the DeepPrep home.
+    + ``--templateflow_home`` - the directory of the TemplateFlow home.
+    + ``--ignore_error`` - ignores the errors occurred during processing.
+    + ``-resume`` - allows the DeepPrep pipeline starts from the last exit point.
 
 ======================
 The FreeSurfer license
