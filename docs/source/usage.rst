@@ -48,7 +48,7 @@ DeepPrep is compatible with FreeSurfer tools, thus requires a valid license.
     To obtain a FreeSurfer license, simply register for free at
     https://surfer.nmr.mgh.harvard.edu/registration.html.
 
-Pleas make sure that a valid license file is passed into the command.
+Pleas make sure that a valid license file is passed into DeepPrep.
 For example, if the license is stored in the ``$HOME/freesurfer/license.txt`` file on
 the host system, the ``<fs_license_file>`` in command ``-v <fs_license_file>:/fs_license.txt`` should be replaced with the valid path: ::
 
@@ -58,7 +58,7 @@ the host system, the ``<fs_license_file>`` in command ``-v <fs_license_file>:/fs
 =====================
 Sample Docker command
 =====================
-.. code-block:: bash
+.. code-block:: none
     :linenos:
 
     $ docker run -it --rm --gpus all \
@@ -86,13 +86,13 @@ Sample Docker command
     + ``--participant_label`` - the subject id you want to process, otherwise all the subjects in the ``<bids_dir>`` will be processed.
     + ``--anat_only`` - with this flag, only the *anatomical* images will be processed.
     + ``--bold_only`` - with this flag, only the *functional* images will be processed, where *Recon* files are pre-requested.
-    + ``--bold_sdc`` - with this flag, susceptibility distortion correction (SDC) will be applied.
-    + ``--bold_confounds`` - with this flag, confounds will be generated.
+    + ``--bold_sdc`` - apply susceptibility distortion correction (SDC), default is ``True``.
+    + ``--bold_confounds`` - generate confounds, default is ``True``.
     + ``--bold_surface_spaces`` - specifies surfaces spaces, i.e. ``'fsnative fsaverage fsaverage6'``, default is ``fsaverage6``. (*Note:* the space names must be quoted using single quotation marks.)
     + ``--bold_template_space`` - specifies an available template space from `TemplateFlow`_, default is ``MNI152NLin6Asym``.
     .. _TemplateFlow: https://www.templateflow.org/browse/
     + ``--bold_template_res`` - specifies the resolution of the corresponding template space from `TemplateFlow`_, default is ``02``.
-    + ``--device`` - specifies the device, default is ``auto``, which automatically select a GPU device; ``0`` specifies the first GPU device; ``cpu`` refers to CPU only.
+    + ``--device`` - specifies the device. Default is ``auto``, which automatically selects a GPU device; ``0`` specifies the first GPU device; ``cpu`` refers to CPU only.
     + ``--gpu_compute_capability`` - refers to the GPU compute capability, you can find yours `here`_.
     .. _here: https://developer.nvidia.com/cuda-gpus
     + ``--cpus`` - refers to the maximum CPUs for usage, should be integer values > 0.
@@ -107,7 +107,7 @@ Get started with a ``test_sample``, `download here`_.
 
 .. _download here: https://github.com/NingAnMe/DeepPrep-docs/archive/refs/tags/test_sample.zip
 
-The BIDS formatted sample contains one subject with one T1w and two bold files.
+The BIDS formatted sample contains one subject with one anatomical image and two functional images.
 
 1. run with GPU (**recommended**)
 
