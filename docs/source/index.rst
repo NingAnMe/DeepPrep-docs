@@ -13,9 +13,6 @@ Neuroimaging has entered the era of big data. However, the advancement of prepro
 The following is efficient workflow of the DeepPrep pipeline:
 
 .. image:: _static/DP_pipeline.png
-   :width: 600
-   :height: 600
-   :alt: Alternative Text
    :align: center
 |
 A computationally efficient and scalable neuroimaging pipeline is empowered by deep-learning algorithms and workflow managers.
@@ -26,9 +23,6 @@ A computationally efficient and scalable neuroimaging pipeline is empowered by d
 Outperformance in application to large-sample and clinical datasets:
 
 .. image:: _static/main2.png
-   :width: 600
-   :height: 500
-   :alt: Alternative Text
    :align: center
 |
 DeepPrep achieves over 10-fold acceleration and shows robustness in processing clinical samples.
