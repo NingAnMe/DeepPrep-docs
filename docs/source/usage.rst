@@ -7,7 +7,7 @@ The BIDS format
 ===============
 
 The DeepPrep workflow takes the directory of the dataset that is to be processed as the input,
-which is required to be in the valid BIDS format. It is flexible to run the anatomical part only with
+which is required to be in the valid BIDS format. DeepPrep is flexible to run the anatomical part only with
 a T1w image, or just run the functional part with a single BOLD image (the complete Recon folder needs to be specified).
 It is highly recommended to validate your dataset with this free, online `BIDS Validator`_.
 
