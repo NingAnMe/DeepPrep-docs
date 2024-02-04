@@ -171,18 +171,12 @@ Finally, the report concludes with comprehensive boilerplate methods text, offer
 accompanied by appropriate citations. Some examples are shown below:
 
 .. image:: _static/report_timeline.png
-   :width: 800
-   :height: 259
-   :alt: Alternative Text
    :align: center
 
 The visual reports provide several sections per task and run to aid designing a denoising strategy for subsequent analysis.
 Some of the estimated confounds are plotted with a "carpet" visualization of the BOLD time series. An example is shown below:
 
 .. image:: _static/desc-carpet_bold.svg
-   :width: 600
-   :height: 300
-   :alt: Alternative Text
    :align: center
 
 The picture was plotted by the FMRISummary from Nipype and these values were calculated by the following methods.
