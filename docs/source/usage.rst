@@ -110,7 +110,7 @@ The BIDS formatted sample contains one subject with one anatomical image and two
 
 1. run with GPU (**recommended**)
 
-.. code-block:: bash
+.. code-block:: none
     :linenos:
 
     $ docker run -it --rm --gpus all \
@@ -133,7 +133,7 @@ The BIDS formatted sample contains one subject with one anatomical image and two
 
 2. run with CPU only
 
-.. code-block:: bash
+.. code-block:: none
     :linenos:
 
     $ docker run -it --rm \
@@ -148,6 +148,7 @@ The BIDS formatted sample contains one subject with one anatomical image and two
                  --fs_license_file /fs_license.txt \
                  --device cpu
 
+**DeepPrep arguments**
     + ``--device cpu`` - refers to CPU only.
 
 
