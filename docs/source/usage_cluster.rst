@@ -1,161 +1,352 @@
+.. include:: links.rst
+
+
 -------------------
-Usage Notes (Local)
+Usage Notes (Cluster)
 -------------------
-
-===============
-The BIDS format
-===============
-
-The DeepPrep workflow takes the directory of the dataset that is to be processed as the input,
-which is required to be in the valid BIDS format. DeepPrep is flexible to run the anatomical part only with
-a T1w image, or just run the functional part with a single BOLD image (the complete Recon folder needs to be specified).
-It is highly recommended to validate your dataset with this free, online `BIDS Validator`_.
-
-.. _BIDS Validator: http://bids-standard.github.io/bids-validator/
-
-For more information about BIDS and BIDS-Apps, please check the `NiPreps portal`_.
-
-.. _NiPreps portal: https://www.nipreps.org/apps/framework/
-
-
-======================
-Command-line arguments
-======================
-
-DeepPrep: Deep learning empowered preprocessing workflow 23.1.0:
-
-.. code-block:: none
-
-   usage: deepprep-docker [bids_dir] [output_dir] [{participant}] [--bold_task_type TASK_LABEL]
-                          [--fs_license_file PATH] [--participant-label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
-                          [--subjects_dir PATH] [--skip_bids_validation]
-                          [--anat_only] [--bold_only] [--bold_sdc] [--bold_confounds]
-                          [--bold_surface_spaces '[fsnative fsaverage fsaverage6 ...]']
-                          [--bold_volume_space {MNI152NLin6Asym MNI152NLin2009cAsym}] [--bold_volume_res {02 03...}]
-                          [--device { {auto 0 1 2...} cpu}] [--gpu_compute_capability {8.6}]
-                          [--cpus 10] [--memory 5]
-                          [--ignore_error] [--resume]
-
---skip_bids_validation
-
-
-
-
-======================
-The FreeSurfer license
-======================
-DeepPrep is compatible with FreeSurfer tools, thus requires a valid license.
-
-    To obtain a FreeSurfer license, simply register for free at
-    https://surfer.nmr.mgh.harvard.edu/registration.html.
-
-Please make sure that a valid license file is passed into DeepPrep.
-For example, if the license is stored in the ``$HOME/freesurfer/license.txt`` file on
-the host system, the ``<fs_license_file>`` in command ``-v <fs_license_file>:/fs_license.txt`` should be replaced with the valid path: ::
-
-    $ -v $HOME/freesurfer/license.txt:/fs_license.txt
-
 
 =====================
-Sample Docker command
+Process in a Nutshell
 =====================
-.. code-block:: none
-    :linenos:
 
-    $ docker run -it --rm --gpus all \
-                 -v <bids_dir>:/input \
-                 -v <output_dir>:/output \
-                 -v <fs_license_file>:/fs_license.txt \
-                 ninganme/deepprep:v23.1.0 \
-                 /input \
-                 /output \
-                 participant \
-                 --bold_task_type rest \
-                 --fs_license_file /fs_license.txt
+1. log into HPC or cloud platforms that have **nodes** with resource application permissions.
+2. Download the Singularity image to the **shared directory** on the cluster platform (or pull the Docker image directly).
+3. Install java > 11 and Nextflow > 23.
+4. Update the configuration file to meet the requirements for the specific platform.
+5. Execute DeepPrep Singularity/Docker.
 
-**Let's dig into the mandatory commands**
-    + ``<bids_dir>`` - refers to the directory of the input dataset, which should be in `BIDS format`_.
-    .. _BIDS format: https://bids-specification.readthedocs.io/en/stable/index.html
-    + ``<output_dir>`` - refers to the directory for the outputs of DeepPrep.
-    + ``<fs_license_file>`` - the directory of a valid FreeSurfer License.
-    + ``deepprep:v23.1.0`` - the latest version of the Docker image. You can specify the version by ``deepprep:<version>``.
-    + ``participant`` - refers to the analysis level.
-    + ``--bold_task_type`` - the task label of BOLD images (i.e. ``rest``, ``motor``).
 
-**Dig further (optional commands)**
-    + ``--participant_label`` - the subject ID you want to process, i.e. ``'sub-001 sub-002'``. Otherwise, all the subjects in the ``<bids_dir>`` will be processed by default.
-    + ``--subjects_dir`` - the output directory of *Recon* files, default is ``<output_dir>/Recon``.
-    + ``--skip_bids_validation`` - with this flag, the BIDS format validation of the input dataset will be skipped.
-    + ``--anat_only`` - with this flag, only the *anatomical* images will be processed.
-    + ``--bold_only`` - with this flag, only the *functional* images will be processed, where *Recon* files are pre-requested.
-    + ``--bold_sdc`` - applies susceptibility distortion correction (SDC), default is ``True``.
-    + ``--bold_confounds`` - generates confounds derived from BOLD fMRI, such as head motion variables, global signals, default is ``True``.
-    + ``--bold_surface_spaces`` - specifies surface template spaces, i.e. ``'fsnative fsaverage fsaverage[3-6]'``, default is ``'fsaverage6'``. (*Note:* the space names must be quoted using single quotation marks)
-    + ``--bold_volume_space`` - specifies an available volumetric space from `TemplateFlow`_, default is ``MNI152NLin6Asym``.
-    .. _TemplateFlow: https://www.templateflow.org/browse/
-    + ``--bold_volume_res`` - specifies the spatial resolution of the corresponding template space from `TemplateFlow`_, default is ``02``.
-    + ``--device`` - specifies the device. Default is ``auto``, which automatically selects a GPU device; ``0`` specifies the first GPU device; ``cpu`` refers to CPU only.
-    + ``--gpu_compute_capability`` - refers to the GPU compute capability, you can find yours `here`_.
-    .. _here: https://developer.nvidia.com/cuda-gpus
-    + ``--cpus`` - refers to the maximum CPUs for usage, should be integer values > 0.
-    + ``--memory`` - refers to the maximum memory resources for usage, should be integer values > 0.
-    + ``--ignore_error`` - ignores the errors occurred during processing.
-    + ``--resume`` - allows the DeepPrep pipeline starts from the last exit point.
 
-Quick start
------------
 
-Get started with a ``test_sample``, `download here`_.
+======================
+Platform and Login Nodes
+======================
 
-.. _download here: https://github.com/NingAnMe/DeepPrep-docs/archive/refs/tags/test_sample.zip
+ - The specified login nodes are typically applicable on HPC or cloud platforms, allowing users to submit jobs to the platform.
 
-The BIDS formatted sample contains one subject with one anatomical image and two functional images.
+ - Job schedulers various across HPC platforms, i.e. SLURM, PBS, SGE, and etc. Thus the commands for submitting jobs are different, i.e. ``sbatch`` for SLURM, ``qsub`` for PBS, and etc.
 
-1. run with GPU (**recommended**)
+ - Also, different services are used across various cloud platforms to submit jobs, i.e. AWS uses AWS Batch service, Google Cloud uses Google Cloud Batch service.
+
+
+
+
+=============================================
+Download the Singularity image (Google Drive)
+=============================================
+The Singularity image is typically used on HPC, since users do not have permissions to access the root directory.
+While the Docker image is commonly used on cloud platforms.
+
+.. warning::
+    The Singularity image should be downloaded to a **shared directory** ``<shared_storage_path>``.
+
+
+
+Download the DeepPrep sif image from Google Drive
+-------------------------------------------------
+
+1. Download from the `website`_.
+
+.. _website: https://drive.google.com/file/d/1iqopJLSsXaFLHZnNQsQuASXnkfUT62UO/view?usp=drive_link
+
+2. Download via ``gdown``:
 
 .. code-block:: none
-    :linenos:
 
-    $ docker run -it --rm --gpus all \
-                 -v ~/test_sample:/input \
-                 -v ~/deepprep_output:/output \
-                 -v ~/license.txt:/fs_license.txt \
-                 ninganme/deepprep:v23.1.0 \
-                 /input \
-                 /output \
-                 participant \
-                 --bold_task_type rest \
-                 --fs_license_file /fs_license.txt
+    pip install gdown
 
-**Docker arguments**
-    + ``-it`` - (optional) starts the container in an interactive mode.
-    + ``--rm`` - (optional) the container will be removed upon exit.
-    + ``--gpus all`` - (optional) assign all the available GPUs on the local host to the container. *This flag is highly recommended*.
-    + ``-v`` - mounts your local directories to the directories inside the container. The input directories should be in *absolute path* to avoid any mistakes.
+    cd <shared_storage_path>
+
+    gdown --id  1iqopJLSsXaFLHZnNQsQuASXnkfUT62UO
+
+Then you will get: ``<shared_storage_path>/deepprep_23.1.0.sif``
 
 
-2. run with CPU only
+
+
+
+=====================================
+Download the Docker image (DockerHub)
+=====================================
+
+Download the DeepPrep image from the DockerHub
+----------------------------------------------
 
 .. code-block:: none
-    :linenos:
 
-    $ docker run -it --rm \
-                 -v ~/test_sample:/input \
-                 -v ~/deepprep_output:/output \
-                 -v ~/license.txt:/fs_license.txt \
-                 ninganme/deepprep:v23.1.0 \
-                 /input \
-                 /output \
-                 participant \
-                 --bold_task_type rest \
-                 --fs_license_file /fs_license.txt \
-                 --device cpu
-
-**DeepPrep arguments**
-    + ``--device cpu`` - refers to CPU only.
+    docker pull ninganme/deepprep:23.1.0
 
 
-.. container:: congratulation
+When its done, you will find the Docker image by this command ``docker image ls``, the ``REPOSITORY`` is ``ninganme/deepprep`` with a ``TAG: 23.1.0``.
 
-   **Congratulations! You are all set!**
+
+
+
+======================
+Install Nextflow >= 23
+======================
+
+Please install `Nexflow`_ if you don't have one, or the version < 23.
+
+.. _Nexflow: https://www.nextflow.io/docs/latest/getstarted.html
+
+Check the version of Nextflow with ``nextflow -version``:
+
+.. code-block:: none
+
+    nextflow -version
+
+      N E X T F L O W
+      version 23.04.3 build 5875
+      created 11-08-2023 18:37 UTC (12-08-2023 02:37 CDT)
+      cite doi:10.1038/nbt.3820
+      http://nextflow.io
+
+
+Sample --- Install on Ubuntu
+----------------------------
+
+**Java**
+
+The Cluster implemented in DeepPrep is based on Nextflow, which requires JAVA > 11.
+Please install `Java`_ if it doesn't exist, or the version < 11. (`How to install Java`_)
+
+.. _Java: https://www.openlogic.com/openjdk-downloads
+
+.. _How to install Java: https://www.java.com/en/download/help/index.html
+
+Check the version of Java with ``java -version``:
+
+.. code-block:: none
+
+ java -version
+
+    openjdk version "11.0.21" 2023-10-17
+    OpenJDK Runtime Environment (build 11.0.21+9-post-Ubuntu-0ubuntu120.04)
+    OpenJDK 64-Bit Server VM (build 11.0.21+9-post-Ubuntu-0ubuntu120.04, mixed mode, sharing)
+
+
+**Nextflow**
+
+Install Nextflow:
+
+.. code-block:: none
+
+    export NEXTFLOW_BIN=/opt/nextflow/bin
+    mkdir -p ${NEXTFLOW_BIN} && cd ${NEXTFLOW_BIN} && wget -qO- https://get.nextflow.io | bash
+    chmod 755 ${NEXTFLOW_BIN}/nextflow
+    export PATH=${NEXTFLOW_BIN}:${PATH}
+
+Double check the Nextflow version >= 23 with ``nextflow -version``.
+
+
+
+
+
+========================================
+Update the Configuration file (with GPU)
+========================================
+
+.. warning::
+
+    It is **mandatory** to update the DeepPrep configuration file to meet the requirements of your cluster platform.
+
+DeepPrep is developed based on Nextflow, enabling a scalable computation on the platforms list `here`_.
+
+.. _here: https://www.nextflow.io/docs/latest/executor.html
+
+Let's first walk through the detailed introduction of executing DeepPrep on SLURM.
+Following that, samples for SLURM, PBS, and AWS will be provided.
+
+
+This is the configuration file used on SLURM with GPU Driver:
+
+.. code-block:: none
+
+    //deepprep.slurm.gpu.config
+
+    singularity.enabled = true
+    singularity.autoMounts = false
+    singularity.runOptions = '-e \
+    --home ${output_dir}/WorkDir/home \
+    --env TEMP=${output_dir}/WorkDir/tmp \
+    --env TMP=${output_dir}/WorkDir/tmp \
+    --env TMPDIR=${output_dir}/WorkDir/tmp \
+    -B ${bids_dir} \
+    -B ${output_dir} \
+    -B ${fs_license_file}:/opt/freesurfer/license.txt \
+    '
+
+    process {
+    //errorStrategy = 'ignore'
+
+        executor = 'slurm'
+
+        queue = 'cpu1,cpu2,fat'
+
+        clusterOptions = { " --chdir=${nextflow_work_dir}" }
+
+        container = "${container}"
+
+         withLabel: with_gpu {
+             queue = 'gpu1,gpu2'
+             clusterOptions = { " --gres=gpu:1" }
+             singularity.runOptions = '-e --nv -B ${fs_license_file}:/opt/freesurfer/license.txt'
+         }
+    }
+
+
+**Explanation**
+    + ``singularity.enabled = true`` - Execution is based on the Singularity image. This command can be replaced with ``docker.enabled = true`` on cloud platforms, if Docker image is used.
+    + ``singularity.autoMounts = false`` - When set to ``true``, the host directories will be automatically mounted in the container upon execution. It relies on the ``user bin control``, which is enabled by default in Singularity installation. However, DeepPrep does not need this function, thus set to ``false``.
+    + ``singularity.runOptions`` - The personalized setting to execute DeepPrep Singularity image. *Do NOT modify*.
+
+    + ``process`` - defines the parameters for each process in DeepPrep.
+    + ``executor = 'slurm'`` - indicates the executed environment is SLURM.
+    + ``queue = 'cpu1,cpu2,fat'`` - specifies the resource from ``queue`` to be allocated. A list of available ``queue`` will be returned from command ``sinfo``, and users need to *UPDATE this setting* with available resources from the list.
+    + ``clusterOptions = { " --chdir=${nextflow_work_dir}" }`` - other personalized settings on the cluster, where ``--chdir=${nextflow_work_dir}`` is the personalized working directory.
+    + ``container = "${container}"`` - the specified container to use.
+
+**For GPU users**
+    + ``withLabel: with_gpu`` - the personalized GPU setting.
+    + ``queue = 'gpu2'`` - indicates the resource to be allocated from the GPU queue named `'gpu2'`.
+*UPDATE this setting* with available GPU queue, check with ``sinfo``.
+    + ``clusterOptions = { " --gres=gpu:1" }`` - specifies the resource required for a job submission, ``gpu:1`` indicates one GPU driver.
+    + ``singularity.runOptions = '--nv'`` - The GPU environment will be enabled upon execution.
+
+
+.. note::
+    Personalize the ``queue`` settings ONLY should work well for all the SLURM based HPC paltforms.
+
+Save the configuration file as ``<shared_storage_path>/deepprep.slurm.gpu.config``.
+
+
+Run DeepPrep with GPU
+---------------------
+
+1. Assign an *absolute path* to ``${TEST_DIR}``.
+
+.. code-block:: bash
+
+    export TEST_DIR=<shared_storage_path>
+
+2. Download the DeepPrep code.
+
+.. code-block:: bash
+
+    cd ${TEST_DIR}
+    git clone <DeepPrep repositoriy Github Path> DeepPrep
+
+3. Run DeepPrep.
+
+Pass *absolute paths* to avoid any mistakes.
+
+.. code-block:: bash
+
+    export FS_LICENSE=<freesurfer_license_file>
+    export BIDS_PATH=${TEST_DIR}/<bids_path>
+    export OUTPUT_PATH=${TEST_DIR}/<output_path>
+
+    ${TEST_DIR}/DeepPrep/deepprep/deepprep.sh \
+    ${BIDS_PATH} \
+    ${OUTPUT_PATH} \
+    participant \
+    --bold_task_type <> \
+    --deepprep_home ${TEST_DIR}/DeepPrep \
+    --fs_license_file ${FS_LICENSE} \
+    --executor cluster \
+    --container ${TEST_DIR}/deepprep_23.1.0.sif \
+    --config_file ${TEST_DIR}/deepprep.slurm.gpu.config
+
+**Add the following arguments to execute on clusters**
+
+.. code-block:: bash
+
+    --executor cluster
+    --container ${TEST_DIR}/deepprep_23.1.0.sif
+    --config_file ${TEST_DIR}/deepprep.slurm.gpu.config
+
+
+
+========================================
+Update the Configuration file (CPU only)
+========================================
+
+To execute DeepPrep on CPU can use the previously stated configuration file (on GPU) by removing the ``withLabel: with_gpu ...`` section.
+
+Shown as below:
+
+.. code-block:: none
+
+    //deepprep.slurm.cpu.config
+
+    singularity.enabled = true
+    singularity.autoMounts = false
+    singularity.runOptions = '-e \
+    --home ${output_dir}/WorkDir/home \
+    --env TEMP=${output_dir}/WorkDir/tmp \
+    --env TMP=${output_dir}/WorkDir/tmp \
+    --env TMPDIR=${output_dir}/WorkDir/tmp \
+    -B ${bids_dir} \
+    -B ${output_dir} \
+    -B ${fs_license_file}:/opt/freesurfer/license.txt \
+    '
+
+    process {
+    //errorStrategy = 'ignore'
+
+        executor = 'slurm'
+
+        queue = 'cpu1,cpu2,fat'
+
+        clusterOptions = { " --chdir=${nextflow_work_dir}" }
+
+        container = "${container}"
+    }
+
+save to ``<shared_storage_path>/deepprep.slurm.cpu.config``
+
+
+Run DeepPrep with CPU only
+--------------------------
+
+To execute DeepPrep only on CPUs, add the ``--device cpu`` command, and modify the ``--config_file`` to the CPU version ``deepprep.slurm.cpu.config``.
+
+Pass *absolute paths* to avoid any mistakes.
+
+Shown as below:
+
+.. code-block:: bash
+
+    export FS_LICENSE=<freesurfer_license_file>
+    export BIDS_PATH=${TEST_DIR}/<bids_path>
+    export OUTPUT_PATH=${TEST_DIR}/<output_path>
+
+    ${TEST_DIR}/DeepPrep/deepprep/deepprep.sh \
+    ${BIDS_PATH} \
+    ${OUTPUT_PATH} \
+    participant \
+    --bold_task_type <> \
+    --deepprep_home ${TEST_DIR}/DeepPrep \
+    --fs_license_file ${FS_LICENSE} \
+    --executor cluster \
+    --container ${TEST_DIR}/deepprep_23.1.0.sif \
+    --config_file ${TEST_DIR}/deepprep.slurm.cpu.config \
+    --device cpu
+
+
+
+==========================
+Samples on three platforms
+==========================
+
+SLURM
+-----
+
+
+PBS
+---
+
+AWS
+---
 

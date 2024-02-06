@@ -52,7 +52,8 @@ Contents
    :maxdepth: 3
 
    installation
-   usage
+   usage_local
+   usage_cluster
    processing
    outputs
    faq
