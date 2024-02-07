@@ -228,7 +228,7 @@ Run DeepPrep with GPU
 
 1. Assign an *absolute path* to ``${TEST_DIR}``.
 
-.. code-block:: bash
+.. code-block:: none
 
     $ export TEST_DIR=<shared_storage_path>
 
@@ -243,27 +243,27 @@ Run DeepPrep with GPU
 
 Pass *absolute paths* to avoid any mistakes.
 
-.. code-block:: bash
+.. code-block:: none
     :emphasize-lines: 14
 
-    export FS_LICENSE=<freesurfer_license_file>
-    export BIDS_PATH=${TEST_DIR}/<bids_path>
-    export OUTPUT_PATH=${TEST_DIR}/<output_path>
+    $ export FS_LICENSE=<freesurfer_license_file>
+    $ export BIDS_PATH=${TEST_DIR}/<bids_path>
+    $ export OUTPUT_PATH=${TEST_DIR}/<output_path>
 
-    ${TEST_DIR}/DeepPrep/deepprep/deepprep.sh \
-    ${BIDS_PATH} \
-    ${OUTPUT_PATH} \
-    participant \
-    --bold_task_type <task_label> \
-    --deepprep_home ${TEST_DIR}/DeepPrep \
-    --fs_license_file ${FS_LICENSE} \
-    --executor cluster \
-    --container ${TEST_DIR}/deepprep_23.1.0.sif \
-    --config_file ${TEST_DIR}/deepprep.slurm.gpu.config
+    $ ${TEST_DIR}/DeepPrep/deepprep/deepprep.sh \
+      ${BIDS_PATH} \
+      ${OUTPUT_PATH} \
+      participant \
+      --bold_task_type <task_label> \
+      --deepprep_home ${TEST_DIR}/DeepPrep \
+      --fs_license_file ${FS_LICENSE} \
+      --executor cluster \
+      --container ${TEST_DIR}/deepprep_23.1.0.sif \
+      --config_file ${TEST_DIR}/deepprep.slurm.gpu.config
 
 **Add the following arguments to execute on clusters**
 
-.. code-block:: bash
+.. code-block:: none
 
     --executor cluster
     --container ${TEST_DIR}/deepprep_23.1.0.sif
@@ -319,7 +319,7 @@ Pass *absolute paths* to avoid any mistakes.
 
 Shown as below:
 
-.. code-block:: bash
+.. code-block:: none
     :emphasize-lines: 14-15
 
     export FS_LICENSE=<freesurfer_license_file>
