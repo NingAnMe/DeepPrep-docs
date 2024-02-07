@@ -322,21 +322,21 @@ Shown as below:
 .. code-block:: none
     :emphasize-lines: 14-15
 
-    export FS_LICENSE=<freesurfer_license_file>
-    export BIDS_PATH=${TEST_DIR}/<bids_path>
-    export OUTPUT_PATH=${TEST_DIR}/<output_path>
+    $ export FS_LICENSE=<freesurfer_license_file>
+    $ export BIDS_PATH=${TEST_DIR}/<bids_path>
+    $ export OUTPUT_PATH=${TEST_DIR}/<output_path>
 
-    ${TEST_DIR}/DeepPrep/deepprep/deepprep.sh \
-    ${BIDS_PATH} \
-    ${OUTPUT_PATH} \
-    participant \
-    --bold_task_type <task_label> \
-    --deepprep_home ${TEST_DIR}/DeepPrep \
-    --fs_license_file ${FS_LICENSE} \
-    --executor cluster \
-    --container ${TEST_DIR}/deepprep_23.1.0.sif \
-    --config_file ${TEST_DIR}/deepprep.slurm.cpu.config \
-    --device cpu
+    $ ${TEST_DIR}/DeepPrep/deepprep/deepprep.sh \
+      ${BIDS_PATH} \
+      ${OUTPUT_PATH} \
+      participant \
+      --bold_task_type <task_label> \
+      --deepprep_home ${TEST_DIR}/DeepPrep \
+      --fs_license_file ${FS_LICENSE} \
+      --executor cluster \
+      --container ${TEST_DIR}/deepprep_23.1.0.sif \
+      --config_file ${TEST_DIR}/deepprep.slurm.cpu.config \
+      --device cpu
 
 
 
