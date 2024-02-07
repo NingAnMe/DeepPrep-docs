@@ -12,7 +12,7 @@ The outputs of DeepPrep have three categories:
 ======================
 Anatomical derivatives
 ======================
-FreeSurfer carries out preprocessed anatomical derivatives stores in ``<output_dir>/Recon`` by default: ::
+FreeSurfer carries out preprocessed anatomical derivatives store in ``<output_dir>/Recon`` by default: ::
 
  <output_dir>/
  ├── Recon/
@@ -33,7 +33,7 @@ are included.
 ======================
 Functional derivatives
 ======================
-The preprocessed functional derivatives are stored under the ``<output_dir>/BOLD`` in BIDS structure. All entities are shown in the file name, where ``sub-<subject_label>`` is mandatory, and the rest are optional: ::
+The preprocessed functional derivatives are stored under the ``<output_dir>/BOLD`` in BIDS structure. All entities are shown in the file names, where ``sub-<subject_label>`` is mandatory, and the rest are optional: ::
 
  <output_dir>/
  ├── BOLD/

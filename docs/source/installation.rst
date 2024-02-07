@@ -57,7 +57,7 @@ The following message should appear:
 
     $ docker run -it --rm --gpus all hello-world
 
-The same output as before is expected. If there's an error message popped up (something like below), please double check that the Docker was installed properly.
+The same output as before is expected. If an error message pops up (something like below), please double-check that the Docker was installed properly.
 
 .. code-block:: none
 
@@ -77,7 +77,7 @@ The same output as before is expected. If there's an error message popped up (so
 
     $ docker run --rm ninganme/deepprep:23.1.0
 
-If the Docker images was pulled successfully, you will see the following message:
+If the Docker image was pulled successfully, you would see the following message:
 
 .. code-block:: none
 

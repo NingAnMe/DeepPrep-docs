@@ -1,9 +1,9 @@
 .. include:: links.rst
 
 
--------------------
-Usage Notes (Cluster)
--------------------
+---------------------------
+Usage Notes (HPC and Cloud)
+---------------------------
 
 =====================
 Process in a Nutshell
@@ -24,9 +24,9 @@ Platform and Login Nodes
 
  - The specified login nodes are typically applicable on HPC or cloud platforms, allowing users to submit jobs to the platform.
 
- - Job schedulers vary across HPC platforms, i.e. SLURM, PBS, SGE, and etc. Thus the commands for submitting jobs are different, i.e. ``sbatch`` for SLURM, ``qsub`` for PBS, and etc.
+ - Job schedulers vary widely across HPC platforms, i.e. SLURM, PBS, SGE, etc. Thus, the commands for submitting jobs are different, i.e. ``sbatch`` for SLURM, ``qsub`` for PBS, etc.
 
- - Also, different services are used across various cloud platforms to submit jobs, i.e. AWS uses AWS Batch service, Google Cloud uses Google Cloud Batch service.
+ - Also, different services are used across various cloud platforms to submit jobs, i.e. AWS uses AWS Batch service, and Google Cloud uses Google Cloud Batch service.
 
 
 
@@ -34,8 +34,8 @@ Platform and Login Nodes
 =============================================
 Download the Singularity image (Google Drive)
 =============================================
-The Singularity image is typically used on HPC, since users do not have permissions to access the root directory.
-While the Docker image is commonly used on cloud platforms.
+The Singularity image is typically used on HPC since users do not have permission to access the root directory.
+Meanwhile, the Docker image is commonly used on cloud platforms.
 
 .. warning::
     The Singularity image should be downloaded to a **shared directory** ``<shared_storage_path>``.
@@ -86,7 +86,7 @@ When its done, you will find the Docker image by this command ``docker image ls`
 Install Nextflow >= 23
 ======================
 
-Please install `Nexflow`_ if you don't have one, or the version < 23.
+Please install `Nexflow`_ if you don't have one or the version < 23.
 
 .. _Nexflow: https://www.nextflow.io/docs/latest/getstarted.html
 
@@ -110,7 +110,7 @@ Sample --- Install on Ubuntu
 **Java**
 
 The Cluster implemented in DeepPrep is based on Nextflow, which requires JAVA > 11.
-Please install `Java`_ if it doesn't exist, or the version < 11. (`How to install Java`_)
+Please install `Java`_ if it doesn't exist or the version < 11. (`How to install Java`_)
 
 .. _Java: https://www.openlogic.com/openjdk-downloads
 
@@ -200,25 +200,25 @@ This is the configuration file used on SLURM with GPU Driver:
 
 
 **Explanation**
-    + ``singularity.enabled = true`` - Execution is based on the Singularity image. This command can be replaced with ``docker.enabled = true`` on cloud platforms, if Docker image is used.
-    + ``singularity.autoMounts = false`` - When set to ``true``, the host directories will be automatically mounted in the container upon execution. It relies on the ``user bin control``, which is enabled by default in Singularity installation. However, DeepPrep does not need this function, thus set to ``false``.
-    + ``singularity.runOptions`` - The personalized setting to execute DeepPrep Singularity image. *Do NOT modify*.
+    + ``singularity.enabled = true`` - Execution is based on the Singularity image. This command can be replaced with ``docker.enabled = true`` on cloud platforms if Docker image is used.
+    + ``singularity.autoMounts = false`` - When set to ``true``, the host directories will be automatically mounted in the container upon execution. It relies on the ``user bin control``, which is enabled by default in Singularity installation. However, DeepPrep does not need this function; thus, it is set to ``false``.
+    + ``singularity.runOptions`` - The personalized setting to execute the DeepPrep Singularity image. *Do NOT modify*.
 
     + ``process`` - defines the parameters for each process in DeepPrep.
     + ``executor = 'slurm'`` - indicates the executed environment is SLURM.
-    + ``queue = 'cpu1,cpu2,fat'`` - specifies the resource from ``queue`` to be allocated. A list of available ``queue`` will be returned from command ``sinfo``, and users need to *UPDATE this setting* with available resources from the list.
+    + ``queue = 'cpu1,cpu2,fat'`` - specifies the resource from ``queue`` to be allocated. A list of available ``queue`` will be returned from the command ``sinfo``, and users need to *UPDATE this setting* with available resources from the list.
     + ``clusterOptions = { " --chdir=${nextflow_work_dir}" }`` - other personalized settings on the cluster, where ``--chdir=${nextflow_work_dir}`` is the personalized working directory.
     + ``container = "${container}"`` - the specified container to use.
 
 **For GPU users**
     + ``withLabel: with_gpu`` - the personalized GPU setting.
     + ``queue = 'gpu2'`` - indicates the resource to be allocated from the GPU queue named `'gpu2'`. *UPDATE this setting* with available GPU queue (check with ``sinfo``).
-    + ``clusterOptions = { " --gres=gpu:1" }`` - specifies the resource required for a job submission, ``gpu:1`` indicates one GPU driver.
+    + ``clusterOptions = { " --gres=gpu:1" }`` - specifies the resource required for a job submission, ``gpu:1`` indicates one GPU.
     + ``singularity.runOptions = '--nv'`` - The GPU environment will be enabled upon execution.
 
 
 .. note::
-    Personalize the ``queue`` settings ONLY should work well for all the SLURM based HPC paltforms.
+    Personalize the ``queue`` settings ONLY should work well for all the SLURM-based HPC platforms.
 
 Save the configuration file as ``<shared_storage_path>/deepprep.slurm.gpu.config``.
 
@@ -275,7 +275,7 @@ Pass *absolute paths* to avoid any mistakes.
 Update the Configuration file (CPU only)
 ========================================
 
-To execute DeepPrep on CPU can use the previously stated configuration file (on GPU) by removing the ``withLabel: with_gpu ...`` section.
+To execute DeepPrep on CPU, you can use the previously stated configuration file (on GPU) by removing the ``withLabel: with_gpu ...`` section.
 
 Shown as below:
 
@@ -313,7 +313,7 @@ save to ``<shared_storage_path>/deepprep.slurm.cpu.config``
 Run DeepPrep with CPU only
 --------------------------
 
-To execute DeepPrep only on CPUs, add the ``--device cpu`` command, and modify the ``--config_file`` to the CPU version ``deepprep.slurm.cpu.config``.
+To execute DeepPrep only on CPUs, add the ``--device cpu`` command and modify the ``--config_file`` to the CPU version ``deepprep.slurm.cpu.config``.
 
 Pass *absolute paths* to avoid any mistakes.
 
