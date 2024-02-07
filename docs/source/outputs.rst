@@ -162,7 +162,7 @@ DeepPrep outputs summary reports, written to ``<output dir>/QC``. These reports 
      ├── report.html
      └── timeline.html
 
-DeepPrep automatically generates a descriptive HTML report for each participant and session. `View a sample report <_static/qc_report/sub-001.html>`_.
+DeepPrep automatically generates a descriptive HTML report for each participant and session. `View a sample report <_static/qc_report/sub-01.html>`_.
 The report commences with a concise summary of key imaging parameters extracted from the BIDS meta information.
 Subsequently, the report provides an overview of the overall CPU and GPU processing times for the data preprocessing.
 Key processing steps and results for structural images are visually presented, including segmentation, parcellation, spatial normalization, and coregistration.
