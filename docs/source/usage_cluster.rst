@@ -24,7 +24,7 @@ Platform and Login Nodes
 
  - The specified login nodes are typically applicable on HPC or cloud platforms, allowing users to submit jobs to the platform.
 
- - Job schedulers various across HPC platforms, i.e. SLURM, PBS, SGE, and etc. Thus the commands for submitting jobs are different, i.e. ``sbatch`` for SLURM, ``qsub`` for PBS, and etc.
+ - Job schedulers vary across HPC platforms, i.e. SLURM, PBS, SGE, and etc. Thus the commands for submitting jobs are different, i.e. ``sbatch`` for SLURM, ``qsub`` for PBS, and etc.
 
  - Also, different services are used across various cloud platforms to submit jobs, i.e. AWS uses AWS Batch service, Google Cloud uses Google Cloud Batch service.
 
@@ -93,6 +93,7 @@ Please install `Nexflow`_ if you don't have one, or the version < 23.
 Check the version of Nextflow with ``nextflow -version``:
 
 .. code-block:: none
+    :emphasize-lines: 4
 
     nextflow -version
 
@@ -118,12 +119,13 @@ Please install `Java`_ if it doesn't exist, or the version < 11. (`How to instal
 Check the version of Java with ``java -version``:
 
 .. code-block:: none
+    :emphasize-lines: 3
 
- java -version
+    java -version
 
-    openjdk version "11.0.21" 2023-10-17
-    OpenJDK Runtime Environment (build 11.0.21+9-post-Ubuntu-0ubuntu120.04)
-    OpenJDK 64-Bit Server VM (build 11.0.21+9-post-Ubuntu-0ubuntu120.04, mixed mode, sharing)
+        openjdk version "11.0.21" 2023-10-17
+        OpenJDK Runtime Environment (build 11.0.21+9-post-Ubuntu-0ubuntu120.04)
+        OpenJDK 64-Bit Server VM (build 11.0.21+9-post-Ubuntu-0ubuntu120.04, mixed mode, sharing)
 
 
 **Nextflow**
@@ -162,6 +164,7 @@ Following that, samples for SLURM, PBS, and AWS will be provided.
 This is the configuration file used on SLURM with GPU Driver:
 
 .. code-block:: none
+    :emphasize-lines: 26-29
 
     //deepprep.slurm.gpu.config
 
@@ -209,8 +212,7 @@ This is the configuration file used on SLURM with GPU Driver:
 
 **For GPU users**
     + ``withLabel: with_gpu`` - the personalized GPU setting.
-    + ``queue = 'gpu2'`` - indicates the resource to be allocated from the GPU queue named `'gpu2'`.
-*UPDATE this setting* with available GPU queue, check with ``sinfo``.
+    + ``queue = 'gpu2'`` - indicates the resource to be allocated from the GPU queue named `'gpu2'`. *UPDATE this setting* with available GPU queue (check with ``sinfo``).
     + ``clusterOptions = { " --gres=gpu:1" }`` - specifies the resource required for a job submission, ``gpu:1`` indicates one GPU driver.
     + ``singularity.runOptions = '--nv'`` - The GPU environment will be enabled upon execution.
 
@@ -242,6 +244,7 @@ Run DeepPrep with GPU
 Pass *absolute paths* to avoid any mistakes.
 
 .. code-block:: bash
+    :emphasize_lines: 14
 
     export FS_LICENSE=<freesurfer_license_file>
     export BIDS_PATH=${TEST_DIR}/<bids_path>
@@ -317,6 +320,7 @@ Pass *absolute paths* to avoid any mistakes.
 Shown as below:
 
 .. code-block:: bash
+    :emphasize-lines: 14-15
 
     export FS_LICENSE=<freesurfer_license_file>
     export BIDS_PATH=${TEST_DIR}/<bids_path>
@@ -326,7 +330,7 @@ Shown as below:
     ${BIDS_PATH} \
     ${OUTPUT_PATH} \
     participant \
-    --bold_task_type <> \
+    --bold_task_type <task_label> \
     --deepprep_home ${TEST_DIR}/DeepPrep \
     --fs_license_file ${FS_LICENSE} \
     --executor cluster \
