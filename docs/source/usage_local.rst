@@ -9,10 +9,11 @@ Usage Notes (Local)
 The BIDS Format
 ===============
 
-The DeepPrep workflow takes the directory of the dataset that is to be processed as the input,
-which is required to be in the valid BIDS format. DeepPrep is flexible to run the anatomical part only with
-a T1w image, or just run the functional part with a single BOLD image (the complete Recon folder needs to be specified).
-It is highly recommended to validate your dataset with this free, online `BIDS Validator`_.
+DeepPrep is able to end-to-end preprocess anatomical and functional MRI data for different data size ranging
+from a single participant to a HUGE dataset. It is also flexible to run the anatomical part or functional part
+that requires a complete Recon folder to be specified. The DeepPrep workflow takes the directory of the dataset
+that is to be processed as the input, which is required to be in the valid BIDS format.
+It is highly recommended that you validate your dataset with this free, online `BIDS Validator`_.
 
 .. _BIDS Validator: http://bids-standard.github.io/bids-validator/
 
@@ -45,7 +46,7 @@ DeepPrep: Deep learning empowered preprocessing workflow 23.1.0:
 ======================
 The FreeSurfer License
 ======================
-DeepPrep is compatible with FreeSurfer tools, thus requires a valid license.
+DeepPrep uses FreeSurfer tools and thus requires a valid license.
 
     To obtain a FreeSurfer license, simply register for free at
     https://surfer.nmr.mgh.harvard.edu/registration.html.
@@ -90,18 +91,18 @@ Sample Docker Command
     + ``--anat_only`` - with this flag, only the *anatomical* images will be processed.
     + ``--bold_only`` - with this flag, only the *functional* images will be processed, where *Recon* files are pre-requested.
     + ``--bold_sdc`` - applies susceptibility distortion correction (SDC), default is ``True``.
-    + ``--bold_confounds`` - generates confounds derived from BOLD fMRI, such as head motion variables, global signals, default is ``True``.
+    + ``--bold_confounds`` - generates confounds derived from BOLD fMRI, such as head motion variables and global signals; the default is ``True``.
     + ``--bold_surface_spaces`` - specifies surface template spaces, i.e. ``'fsnative fsaverage fsaverage[3-6]'``, default is ``'fsaverage6'``. (*Note:* the space names must be quoted using single quotation marks)
     + ``--bold_volume_space`` - specifies an available volumetric space from `TemplateFlow`_, default is ``MNI152NLin6Asym``.
     .. _TemplateFlow: https://www.templateflow.org/browse/
     + ``--bold_volume_res`` - specifies the spatial resolution of the corresponding template space from `TemplateFlow`_, default is ``02``.
-    + ``--device`` - specifies the device. Default is ``auto``, which automatically selects a GPU device; ``0`` specifies the first GPU device; ``cpu`` refers to CPU only.
-    + ``--gpu_compute_capability`` - refers to the GPU compute capability, you can find yours `here`_.
+    + ``--device`` - specifies the device. The default is ``auto``, which automatically selects a GPU device; ``0`` specifies the first GPU device; ``cpu`` refers to CPU only.
+    + ``--gpu_compute_capability`` - refers to the GPU compute capability; you can find yours `here`_.
     .. _here: https://developer.nvidia.com/cuda-gpus
-    + ``--cpus`` - refers to the maximum CPUs for usage, should be integer values > 0.
-    + ``--memory`` - refers to the maximum memory resources for usage, should be integer values > 0.
-    + ``--ignore_error`` - ignores the errors occurred during processing.
-    + ``--resume`` - allows the DeepPrep pipeline starts from the last exit point.
+    + ``--cpus`` - refers to the maximum CPUs for usage, which should be integer values > 0.
+    + ``--memory`` - refers to the maximum memory resources for usage, which should be integer values > 0.
+    + ``--ignore_error`` - ignores the errors that occurred during processing.
+    + ``--resume`` - allows the DeepPrep pipeline to start from the last exit point.
 
 Quick Start
 -----------
@@ -112,7 +113,7 @@ Get started with a ``test_sample``, `download here`_.
 
 The BIDS formatted sample contains one subject with one anatomical image and two functional images.
 
-1. run with GPU (**recommended**)
+1. Run with GPU (**recommended**)
 
 .. code-block:: none
     :linenos:
@@ -135,7 +136,7 @@ The BIDS formatted sample contains one subject with one anatomical image and two
     + ``-v`` - mounts your local directories to the directories inside the container. The input directories should be in *absolute path* to avoid any mistakes.
 
 
-2. run with CPU only
+2. Run with CPU only
 
 .. code-block:: none
     :linenos:
