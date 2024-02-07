@@ -347,9 +347,219 @@ Samples on three platforms
 SLURM
 -----
 
+**CPU Only**
+
+.. code-block:: none
+
+    export TEST_DIR=<test_dir>
+    ${TEST_DIR}/DeepPrep_2310/deepprep/deepprep.sh \
+    ${TEST_DIR}/test_sample \
+    ${TEST_DIR}/test_sample_DeepPrep_2310_cpu \
+    participant \
+    --bold_task_type rest \
+    --deepprep_home ${TEST_DIR}/DeepPrep_2310 \
+    --fs_license_file ${TEST_DIR}/DeepPrep_2310/license.txt \
+    --executor cluster \
+    --container ${TEST_DIR}/deepprep_23.1.0.sif \
+    --config_file ${TEST_DIR}/DeepPrep_2310/deepprep.slurm.cpu.config \
+    --device cpu \
+    --debug \
+    --resume
+
+
+.. code-block:: none
+
+    //deepprep.slurm.cpu.config
+
+    singularity.enabled = true
+    singularity.autoMounts = false
+    singularity.runOptions = '-e \
+    --home ${output_dir}/WorkDir/home \
+    --env TEMP=${output_dir}/WorkDir/tmp \
+    --env TMP=${output_dir}/WorkDir/tmp \
+    --env TMPDIR=${output_dir}/WorkDir/tmp \
+    -B ${bids_dir} \
+    -B ${output_dir} \
+    -B ${fs_license_file}:/opt/freesurfer/license.txt \
+    '
+
+    process {
+    //errorStrategy = 'ignore'
+
+        executor = 'slurm'
+
+        queue = 'cpu1,cpu2,fat'
+
+        clusterOptions = { " --chdir=${nextflow_work_dir}" }
+
+        container = "${container}"
+    }
+
+
+**With GPU**
+
+.. code-block:: none
+
+    export TEST_DIR=<test_dir>
+    ${TEST_DIR}/DeepPrep_2310/deepprep/deepprep.sh \
+    ${TEST_DIR}/test_sample \
+    ${TEST_DIR}/test_sample_DeepPrep_2310_gpu \
+    participant \
+    --bold_task_type rest \
+    --deepprep_home ${TEST_DIR}/DeepPrep_2310 \
+    --fs_license_file ${TEST_DIR}/DeepPrep_2310/license.txt \
+    --executor cluster \
+    --container ${TEST_DIR}/deepprep_23.1.0.sif \
+    --config_file ${TEST_DIR}/DeepPrep_2310/deepprep.slurm.gpu.config \
+    --debug \
+    --resume
+
+.. code-block:: none
+
+    //deepprep.slurm.gpu.config
+
+    singularity.enabled = true
+    singularity.autoMounts = false
+    singularity.runOptions = '-e \
+    --home ${output_dir}/WorkDir/home \
+    --env TEMP=${output_dir}/WorkDir/tmp \
+    --env TMP=${output_dir}/WorkDir/tmp \
+    --env TMPDIR=${output_dir}/WorkDir/tmp \
+    -B ${bids_dir} \
+    -B ${output_dir} \
+    -B ${fs_license_file}:/opt/freesurfer/license.txt \
+    '
+
+    process {
+    //errorStrategy = 'ignore'
+
+        executor = 'slurm'
+
+        queue = 'cpu1,cpu2,fat'
+
+        clusterOptions = { " --chdir=${nextflow_work_dir}" }
+
+        container = "${container}"
+
+         withLabel: with_gpu {
+             queue = 'gpu2'
+             clusterOptions = { " --gres=gpu:1" }
+             singularity.runOptions = '-e --nv -B ${fs_license_file}:/opt/freesurfer/license.txt'
+         }
+    }
+
+
 
 PBS
 ---
+
+**CPU Only**
+
+.. code-block:: none
+
+    export TEST_DIR=<test_dir>
+    ${TEST_DIR}/DeepPrep_2310/deepprep/deepprep.sh \
+    ${TEST_DIR}/test_sample \
+    ${TEST_DIR}/test_sample_DeepPrep_2310_cpu \
+    participant \
+    --bold_task_type rest \
+    --deepprep_home ${TEST_DIR}/DeepPrep_2310 \
+    --fs_license_file ${TEST_DIR}/DeepPrep_2310/license.txt \
+    --executor cluster \
+    --container ${TEST_DIR}/deepprep_23.1.0.sif \
+    --config_file ${TEST_DIR}/DeepPrep_2310/deepprep.pbs.cpu.config \
+    --device cpu \
+    --debug \
+    --resume
+
+
+.. code-block:: none
+
+    // deepprep.pbs.cpu.config
+
+    singularity.enabled = true
+    singularity.autoMounts = false
+    singularity.runOptions = '-e \
+    --home ${output_dir}/WorkDir/home \
+    --env TEMP=${output_dir}/WorkDir/tmp \
+    --env TMP=${output_dir}/WorkDir/tmp \
+    --env TMPDIR=${output_dir}/WorkDir/tmp \
+    -B ${bids_dir} \
+    -B ${output_dir} \
+    -B ${fs_license_file}:/opt/freesurfer/license.txt \
+    '
+
+    process {
+    //errorStrategy = 'ignore'
+
+        executor = 'pbspro'
+
+        time = '2h'
+
+    //    queue = 'bigmem'
+    //    clusterOptions = { ' ' }
+
+        container = '${container}'
+    }
+
+
+**With GPU**
+
+.. code-block:: none
+
+    export TEST_DIR=<test_dir>
+    ${TEST_DIR}/DeepPrep_2310/deepprep/deepprep.sh \
+    ${TEST_DIR}/test_sample \
+    ${TEST_DIR}/test_sample_DeepPrep_2310_gpu \
+    participant \
+    --bold_task_type rest \
+    --deepprep_home ${TEST_DIR}/DeepPrep_2310 \
+    --fs_license_file ${TEST_DIR}/DeepPrep_2310/license.txt \
+    --executor cluster \
+    --container ${TEST_DIR}/deepprep_23.1.0.sif \
+    --config_file ${TEST_DIR}/DeepPrep_2310/deepprep.pbs.gpu.config \
+    --device auto \
+    --debug \
+    --resume
+
+
+.. code-block:: none
+
+    // deepprep.pbs.gpu.config
+
+    singularity.enabled = true
+    singularity.autoMounts = false
+    singularity.runOptions = '-e \
+    --home ${output_dir}/WorkDir/home \
+    --env TEMP=${output_dir}/WorkDir/tmp \
+    --env TMP=${output_dir}/WorkDir/tmp \
+    --env TMPDIR=${output_dir}/WorkDir/tmp \
+    -B ${bids_dir} \
+    -B ${output_dir} \
+    -B ${fs_license_file}:/opt/freesurfer/license.txt \
+    '
+
+    process {
+    //errorStrategy = 'ignore'
+
+        executor = 'pbspro'
+
+        time = '2h'
+
+    //    queue = 'bigmem'
+    //    clusterOptions = { " " }
+
+        container = '${container}'
+
+        withLabel: with_gpu {
+            module = 'cuda/11.8.0-gcc/9.5.0'
+            queue = 'gpu_k240'
+            clusterOptions = { ' -l select=1:ncpus=8:mem=20gb:ngpus=1:gpu_model=p100,walltime=00:20:0' }
+            singularity.runOptions = '--nv --home ${output_dir}/WorkDir/home --env TEMP=${output_dir}/WorkDir/tmp --env TMP=${output_dir}/WorkDir/tmp --env TMPDIR=${output_dir}/WorkDir/tmp -e  -B ${bids_dir} -B ${output_dir} -B ${fs_license_file}:/opt/freesurfer/license.txt'
+        }
+    }
+
+
 
 AWS
 ---
