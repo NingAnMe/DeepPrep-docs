@@ -15,15 +15,15 @@ Anatomical derivatives
 FreeSurfer carries out preprocessed anatomical derivatives stores in ``<output_dir>/Recon`` by default: ::
 
  <output_dir>/
-   Recon/
-     fsaverage/
-     sub-<subject_label>/
-     sub-<subject_label>/
-       label/
-       mri/
-       scripts/
-       ...
-     ...
+ ├── Recon/
+ ├── fsaverage/
+ ├── sub-<subject_label>/
+ ├── sub-<subject_label>/
+     ├── label/
+     ├── mri/
+     ├── scripts/
+     └── ...
+ └── ...
 
 The preprocessed structural MRI data are organized to align with the results of FreeSurfer, encompassing the normalized
 and skull-stripped brain, reconstructed cortical surfaces and morphometrics, volumetric segmentation, cortical surface
