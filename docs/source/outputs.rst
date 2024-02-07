@@ -180,9 +180,10 @@ Some of the estimated confounds are plotted with a "carpet" visualization of the
 .. image:: _static/desc-carpet_bold.svg
    :align: center
 
-The picture was plotted by the FMRISummary from Nipype and these values were calculated by the following methods.
-Global signals (GS) were calculated within the whole-brain, the white-matter (GSWM) and the cerebro-spinal fluid (GSCSF)
-were calculated with their corresponding masks, the standardized DVARS was calculated by ComputeDVARS from Nipype,
-the framewise-displacement measures (FD) were calculated by FramewiseDisplacement from Nipype, and the relative head motion (RHM) was calculated in this pipeline.
-A carpet plot shows the time series for all voxels within the brain mask, include Cortical gray matter (Ctx GM), subcortical gray matter (dGM), white matter and CSF (WM+CSF),
+
+Summary statistics are plotted, which may reveal trends or artifacts in the BOLD data.
+Global signals (GS) were calculated within the whole-brain, and the white-matter (GSWM) and the cerebro-spinal fluid (GSCSF)
+were calculated with their corresponding masks. The standardized DVARS, framewise-displacement measures (FD),
+and relative head motion (RHM) were calculated. A carpet plot shows time series for all voxels within the brain mask,
+including cortical gray matter (Ctx GM), deep (subcortical) gray matter (dGM), white-matter and CSF (WM+CSF),
 and the rest of the brain (The rest).
