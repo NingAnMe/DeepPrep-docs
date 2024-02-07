@@ -53,11 +53,11 @@ Download the DeepPrep sif image from Google Drive
 
 .. code-block:: none
 
-    pip install gdown
+    $ pip install gdown
 
-    cd <shared_storage_path>
+    $ cd <shared_storage_path>
 
-    gdown --id  1iqopJLSsXaFLHZnNQsQuASXnkfUT62UO
+    $ gdown --id  1iqopJLSsXaFLHZnNQsQuASXnkfUT62UO
 
 Then you will get: ``<shared_storage_path>/deepprep_23.1.0.sif``
 
@@ -74,7 +74,7 @@ Download the DeepPrep image from the DockerHub
 
 .. code-block:: none
 
-    docker pull ninganme/deepprep:23.1.0
+    $ docker pull ninganme/deepprep:23.1.0
 
 
 When its done, you will find the Docker image by this command ``docker image ls``, the ``REPOSITORY`` is ``ninganme/deepprep`` with a ``TAG: 23.1.0``.
@@ -134,10 +134,10 @@ Install Nextflow:
 
 .. code-block:: none
 
-    export NEXTFLOW_BIN=/opt/nextflow/bin
-    mkdir -p ${NEXTFLOW_BIN} && cd ${NEXTFLOW_BIN} && wget -qO- https://get.nextflow.io | bash
-    chmod 755 ${NEXTFLOW_BIN}/nextflow
-    export PATH=${NEXTFLOW_BIN}:${PATH}
+    $ export NEXTFLOW_BIN=/opt/nextflow/bin
+    $ mkdir -p ${NEXTFLOW_BIN} && cd ${NEXTFLOW_BIN} && wget -qO- https://get.nextflow.io | bash
+    $ chmod 755 ${NEXTFLOW_BIN}/nextflow
+    $ export PATH=${NEXTFLOW_BIN}:${PATH}
 
 Double check the Nextflow version >= 23 with ``nextflow -version``.
 
@@ -230,21 +230,21 @@ Run DeepPrep with GPU
 
 .. code-block:: bash
 
-    export TEST_DIR=<shared_storage_path>
+    $ export TEST_DIR=<shared_storage_path>
 
 2. Download the DeepPrep code.
 
-.. code-block:: bash
+::
 
-    cd ${TEST_DIR}
-    git clone <DeepPrep repositoriy Github Path> DeepPrep
+    $ cd ${TEST_DIR}
+    $ git clone <DeepPrep repositoriy Github Path> DeepPrep
 
 3. Run DeepPrep.
 
 Pass *absolute paths* to avoid any mistakes.
 
 .. code-block:: bash
-    :emphasize_lines: 14
+    :emphasize-lines: 14
 
     export FS_LICENSE=<freesurfer_license_file>
     export BIDS_PATH=${TEST_DIR}/<bids_path>
@@ -254,7 +254,7 @@ Pass *absolute paths* to avoid any mistakes.
     ${BIDS_PATH} \
     ${OUTPUT_PATH} \
     participant \
-    --bold_task_type <> \
+    --bold_task_type <task_label> \
     --deepprep_home ${TEST_DIR}/DeepPrep \
     --fs_license_file ${FS_LICENSE} \
     --executor cluster \
