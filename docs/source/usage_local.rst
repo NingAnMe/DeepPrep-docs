@@ -109,7 +109,7 @@ Quick Start
 
 Get started with a ``test_sample``, `download here`_.
 
-.. _download here: https://github.com/NingAnMe/DeepPrep-docs/archive/refs/tags/test_sample.zip
+.. _download here: https://drive.google.com/file/d/1Ddf56ohx83lZNZfIXB60A7AnoayitHsU/view?usp=drive_link
 
 The BIDS formatted sample contains one subject with one anatomical image and two functional images.
 
@@ -126,7 +126,7 @@ The BIDS formatted sample contains one subject with one anatomical image and two
                  /input \
                  /output \
                  participant \
-                 --bold_task_type rest \
+                 --bold_task_type 6cat \
                  --fs_license_file /fs_license.txt
 
 **Docker arguments**
@@ -149,7 +149,7 @@ The BIDS formatted sample contains one subject with one anatomical image and two
                  /input \
                  /output \
                  participant \
-                 --bold_task_type rest \
+                 --bold_task_type 6cat \
                  --fs_license_file /fs_license.txt \
                  --device cpu
 

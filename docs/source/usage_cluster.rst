@@ -1,9 +1,9 @@
 .. include:: links.rst
 
 
----------------------------
-Usage Notes (HPC and Cloud)
----------------------------
+---------------------
+Usage Notes (Cluster)
+---------------------
 
 =====================
 Process in a Nutshell
@@ -237,7 +237,7 @@ Run DeepPrep with GPU
 ::
 
     $ cd ${TEST_DIR}
-    $ git clone <DeepPrep repositoriy Github Path> DeepPrep
+    $ git clone https://github.com/IndiLab/DeepPrep.git
 
 3. Run DeepPrep.
 
@@ -343,6 +343,13 @@ Shown as below:
 ==========================
 Samples on three platforms
 ==========================
+
+Get started with a ``test_sample``, `download here`_.
+
+.. _download here: https://drive.google.com/file/d/1Ddf56ohx83lZNZfIXB60A7AnoayitHsU/view?usp=drive_link
+
+The BIDS formatted sample contains one subject with one anatomical image and two functional images.
+
 
 SLURM
 -----
