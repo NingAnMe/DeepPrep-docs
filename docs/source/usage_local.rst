@@ -77,12 +77,13 @@ Sample Docker Command
 
 **Let's dig into the mandatory commands**
     + ``<bids_dir>`` - refers to the directory of the input dataset, which should be in `BIDS format`_.
-    .. _BIDS format: https://bids-specification.readthedocs.io/en/stable/index.html
     + ``<output_dir>`` - refers to the directory for the outputs of DeepPrep.
     + ``<fs_license_file>`` - the directory of a valid FreeSurfer License.
     + ``deepprep:23.1.0`` - the latest version of the Docker image. You can specify the version by ``deepprep:<version>``.
     + ``participant`` - refers to the analysis level.
     + ``--bold_task_type`` - the task label of BOLD images (i.e. ``rest``, ``motor``).
+
+.. _BIDS format: https://bids-specification.readthedocs.io/en/stable/index.html
 
 **Dig further (optional commands)**
     + ``--participant_label`` - the subject ID you want to process, i.e. ``'sub-001 sub-002'``. Otherwise, all the subjects in the ``<bids_dir>`` will be processed by default.
@@ -94,15 +95,16 @@ Sample Docker Command
     + ``--bold_confounds`` - generates confounds derived from BOLD fMRI, such as head motion variables and global signals; the default is ``True``.
     + ``--bold_surface_spaces`` - specifies surface template spaces, i.e. ``'fsnative fsaverage fsaverage[3-6]'``, default is ``'fsaverage6'``. (*Note:* the space names must be quoted using single quotation marks)
     + ``--bold_volume_space`` - specifies an available volumetric space from `TemplateFlow`_, default is ``MNI152NLin6Asym``.
-    .. _TemplateFlow: https://www.templateflow.org/browse/
     + ``--bold_volume_res`` - specifies the spatial resolution of the corresponding template space from `TemplateFlow`_, default is ``02``.
     + ``--device`` - specifies the device. The default is ``auto``, which automatically selects a GPU device; ``0`` specifies the first GPU device; ``cpu`` refers to CPU only.
     + ``--gpu_compute_capability`` - refers to the GPU compute capability; you can find yours `here`_.
-    .. _here: https://developer.nvidia.com/cuda-gpus
     + ``--cpus`` - refers to the maximum CPUs for usage, which should be integer values > 0.
     + ``--memory`` - refers to the maximum memory resources for usage, which should be integer values > 0.
     + ``--ignore_error`` - ignores the errors that occurred during processing.
     + ``--resume`` - allows the DeepPrep pipeline to start from the last exit point.
+
+.. _TemplateFlow: https://www.templateflow.org/browse/
+.. _here: https://developer.nvidia.com/cuda-gpus
 
 Quick Start
 -----------

@@ -18,9 +18,9 @@ Process in a Nutshell
 
 
 
-======================
+========================
 Platform and Login Nodes
-======================
+========================
 
  - The specified login nodes are typically applicable on HPC or cloud platforms, allowing users to submit jobs to the platform.
 

@@ -10,7 +10,9 @@ The following is efficient workflow of the DeepPrep pipeline:
 
 .. image:: _static/DP_pipeline.png
    :align: center
+
 |
+
 A computationally efficient and scalable neuroimaging pipeline is empowered by deep-learning algorithms and workflow managers.
 
  | a) The neuroimaging pipeline leverages deep learning algorithms, including FastSurfer, FastCSR, SUGAR, and SynthMorph, to replace the most time-intensive modules present in conventional pipelines. This substitution enables the achievement of highly efficient and robust brain tissue segmentation, cortical surface reconstruction, cortical surface registration, and volumetric spatial normalization. The current version of the pipeline supports both anatomical and functional MRI preprocessing in both volumetric and cortical surface spaces.
@@ -20,7 +22,9 @@ Outperformance in application to large-sample and clinical datasets:
 
 .. image:: _static/main2.png
    :align: center
+
 |
+
 DeepPrep achieves over 10-fold acceleration and shows robustness in processing clinical samples.
 
  | a) DeepPrep successfully processed 1189 participants’ scans from the UKB dataset on a workstation over one week, a remarkable 11-fold increase compared to fMRIPrep’s processing of 107 participants.
